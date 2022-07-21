@@ -1,0 +1,42 @@
+version: '3.8'
+
+#volumes:
+#  postgres_data:
+
+networks:
+  app_tier:
+    driver: bridge
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: "snd-data"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_tier
+    ports:
+      - "5432:5432"
+
+  rest_server:
+    build:
+#      context: .
+      dockerfile: build/Dockerfile
+    env_file: configs/.env
+    environment:
+      APP_HOST: rest_server
+      DB_HOST: db
+#    volumes:
+#      - .:/usr/src/rest
+    networks:
+      - app_tier
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    links:
+      - db
