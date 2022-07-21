@@ -36,7 +36,7 @@ export default {
         }
     },
     actions: {
-        saveUser({ commit }, data) {
+        saveUser({commit}, data) {
             commit('SET_USER', data)
         }
     }

@@ -1,11 +1,11 @@
-<template >
-    <div class="flex justify-between">
-        <h1
-            class="mb-6 inline text-lg font-extrabold text-secondary px-3 py-1 rounded bg-t-secondary"
-        >Chat</h1>
-    </div>
-    
-    <Chatbox />
+<template>
+  <div class="flex justify-between">
+    <h1
+        class="mb-6 inline text-lg font-extrabold text-secondary px-3 py-1 rounded bg-t-secondary"
+    >Chat</h1>
+  </div>
+
+  <Chatbox/>
 </template>
 
 <script>
@@ -18,15 +18,13 @@ axios.defaults.baseURL = '/api';
 
 
 export default {
-    name: 'Chatest',
-    data() {
-        return {
-
-        }
-    },
-    components:{
-        Chatbox
-    }
+  name: 'Chatest',
+  data() {
+    return {}
+  },
+  components: {
+    Chatbox
+  }
 
 }
 

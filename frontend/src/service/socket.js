@@ -1,23 +1,23 @@
-import { ref } from "vue";
+import {ref} from "vue";
 import openSocket from "socket.io-client";
-import { currentUrlWithPortNumber } from "../utils/url-manipulation.js";
+import {currentUrlWithPortNumber} from "../utils/url-manipulation.js";
 
 export function useSocketIo(port) {
-  return openSocket(currentUrlWithPortNumber(port));
+    return openSocket(currentUrlWithPortNumber(port));
 }
 
 export function useSocketName(socket) {
-  const name = ref("");
+    const name = ref("");
 
-  socket.on("name", serverName => {
-    name.value = serverName;
-  });
+    socket.on("name", serverName => {
+        name.value = serverName;
+    });
 
-  function setDisplayName(value) {
-    console.log(value);
-    socket.emit("updateName", value);
-    console.log(socket);
-  }
+    function setDisplayName(value) {
+        console.log(value);
+        socket.emit("updateName", value);
+        console.log(socket);
+    }
 
-  return [name, setDisplayName];
+    return [name, setDisplayName];
 }

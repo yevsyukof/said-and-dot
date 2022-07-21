@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {createRouter, createWebHistory} from "vue-router";
 
 
 import Main from '/src/components/Main.vue'
@@ -56,7 +56,6 @@ const routes = [
 ]
 
 
-
 const router = createRouter({
     history: createWebHistory(),
     routes,
@@ -101,8 +100,8 @@ router.beforeEach((to, from) => {
             document.title = 'EXOCIAL - Settings';
             break;
         case 'User Profile':
-                document.title = 'EXOCIAL - User Profile';
-                break;
+            document.title = 'EXOCIAL - User Profile';
+            break;
         default:
             document.title = 'EXOCIAL';
             break;

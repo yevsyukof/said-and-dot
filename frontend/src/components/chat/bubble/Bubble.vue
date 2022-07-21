@@ -1,18 +1,18 @@
 <template>
-    <div>
-        
-    </div>
+  <div>
+
+  </div>
 </template>
 
 <script>
 
 export default {
-    name: 'chat-bubble'
+  name: 'chat-bubble'
 }
 
 </script>
 
 
-<style >
-    
+<style>
+
 </style>

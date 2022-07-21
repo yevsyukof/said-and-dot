@@ -1,10 +1,9 @@
-
 import validator from 'validator';
 
-import { notify } from "@kyvg/vue3-notification";
+import {notify} from "@kyvg/vue3-notification";
 
 function notifyError(msg) {
-    notify({ type: 'error', title: 'Error!', text: msg });
+    notify({type: 'error', title: 'Error!', text: msg});
 }
 
 
@@ -21,19 +20,22 @@ function isEmail(form) {
 }
 
 function isNamesValid(form) {
-    return (validator.isAlpha(form.firstname) && validator.isAlpha(form.lastname) && validator.isLength(form.firstname, { min: 3, max: 20 }) &&validator.isLength(form.lastname, { min: 3, max: 20 }))
+    return (validator.isAlpha(form.firstname) && validator.isAlpha(form.lastname) && validator.isLength(form.firstname, {
+        min: 3,
+        max: 20
+    }) && validator.isLength(form.lastname, {min: 3, max: 20}))
 }
 
 function isUsernameValid(form) {
-    return (validator.isLength(form.username, { min: 4, max: 20 }) && validator.isAlphanumeric(form.username))
+    return (validator.isLength(form.username, {min: 4, max: 20}) && validator.isAlphanumeric(form.username))
 }
 
 function isPasswordValid(form) {
-    return validator.isLength(form.password, { min: 8, max: 20 })
+    return validator.isLength(form.password, {min: 8, max: 20})
 }
 
-function isBioValid(form){
-    return validator.isLength(form.bio, { min: 8, max: 70} )
+function isBioValid(form) {
+    return validator.isLength(form.bio, {min: 8, max: 70})
 }
 
 const validateRegister = (form) => {
@@ -75,7 +77,7 @@ const validateProfileEdit = (form) => {
         return false;
     }
 
-    if(!isBioValid(form)){
+    if (!isBioValid(form)) {
         notifyError("Make sure the bio is valid ( Min: 8 Max: 70 characters )")
         return false;
     }
@@ -84,5 +86,4 @@ const validateProfileEdit = (form) => {
 }
 
 
-
-export { validateRegister, validateProfileEdit };
+export {validateRegister, validateProfileEdit};
