@@ -1,11 +1,8 @@
 <script>
-
 import axios from 'axios';
+import {axiosInstance} from "../service/axiosService";
 
-
-
-axios.defaults.baseURL = '/api/v1';
-// axios.defaults.baseURL = 'http://localhost:3000';
+// import {axiosInstance} from "../service/axiosService";
 
 export default {
   name: 'login-page',
@@ -27,32 +24,29 @@ export default {
     async login() {
       this.loading = true;
 
-      let user = {
-        username: this.username,
-        password: this.password
-      }
+      await axiosInstance.post('/auth/login', {
+            username: "asdasd",
+            password: "asdasdasd"
+            // username: this.username,
+            // password: this.password
+          }
+      ).then(response => {
+        if (response.status === 201) {
+          this.$notify({type: 'error', title: 'Error!', text: "Invalid credentials..."});
+          return;
+        }
 
-      await axios.get(`http://localhost:3000/${axios.defaults.baseURL}`) // it works
+        this.$notify({
+          clean: true
+        })
+        this.$notify({type: 'success', title: 'Sucess!', text: 'User logged in.'});
 
-      const res = await axios.post('/auth/login', user)
-          .then(response => {
-            if (response.status === 201) {
-              this.$notify({type: 'error', title: 'Error!', text: "Invalid credentials..."});
-              return;
-            }
-
-            this.$notify({
-              clean: true
-            })
-            this.$notify({type: 'success', title: 'Sucess!', text: 'User logged in.'});
-
-            localStorage.setItem('auth_token', response.data.token);
-            this.$store.authToken = response.data.token
-            this.$router.push('/');
-          }, err => {
-            this.$notify({type: 'error', title: 'Error!', text: "Trouble logging in..."});
-          });
-
+        localStorage.setItem('auth_token', response.data.token);
+        this.$store.authToken = response.data.token
+        this.$router.push('/');
+      }, err => {
+        this.$notify({type: 'error', title: 'Error!', text: "Trouble logging in..."});
+      });
 
       this.loading = false;
     },
