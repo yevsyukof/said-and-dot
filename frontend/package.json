@@ -1,0 +1,40 @@
+{
+  "name": "snd-frontend",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/vue-fontawesome": "^3.0.0-5",
+    "@kyvg/vue3-notification": "^2.3.4",
+    "@tailwindcss/line-clamp": "^0.3.0",
+    "axios": "^0.24.0",
+    "moment": "^2.29.1",
+    "nprogress": "^0.2.0",
+    "socket.io": "^4.4.1",
+    "socket.io-client": "^4.1.0",
+    "validator": "^13.7.0",
+    "vite-stack": "file:..",
+    "vue": "^3.2.23",
+    "vue-content-loader": "^2.0.1",
+    "vue-router": "^4.0.12",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.10.2",
+    "autoprefixer": "^10.4.0",
+    "concurrently": "^6.4.0",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-vue": "^8.2.0",
+    "postcss": "^8.4.4",
+    "prettier": "^2.5.1",
+    "sass": "^1.45.1",
+    "tailwindcss": "^3.0.1",
+    "vite": "^2.7.0"
+  }
+}
