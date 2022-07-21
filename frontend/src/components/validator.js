@@ -2,17 +2,25 @@ import validator from 'validator';
 
 import {notify} from "@kyvg/vue3-notification";
 
+
+/// TODO отвечает за всплывающее красное окно уведомления
 function notifyError(msg) {
     notify({type: 'error', title: 'Error!', text: msg});
 }
 
 
 function isEmpty(form) {
-    return (form.firstname == '' || form.lastname == '' || form.username == '' || form.password == '' || form.email == '')
+    return (
+        form.firstname === ''
+        || form.lastname === ''
+        || form.username === ''
+        || form.password === ''
+        || form.email === ''
+    )
 }
 
 function isEmptyNoEmail(form) {
-    return (form.firstname == '' || form.lastname == '')
+    return (form.firstname === '' || form.lastname === '')
 }
 
 function isEmail(form) {
@@ -20,10 +28,19 @@ function isEmail(form) {
 }
 
 function isNamesValid(form) {
-    return (validator.isAlpha(form.firstname) && validator.isAlpha(form.lastname) && validator.isLength(form.firstname, {
-        min: 3,
-        max: 20
-    }) && validator.isLength(form.lastname, {min: 3, max: 20}))
+    return (
+        validator.isAlpha(form.firstname)
+        && validator.isAlpha(form.lastname)
+        && validator.isLength(
+            form.firstname, {
+                min: 3,
+                max: 20
+            })
+        && validator.isLength(
+            form.lastname, {
+                min: 3, max: 20
+            })
+    )
 }
 
 function isUsernameValid(form) {
@@ -40,26 +57,26 @@ function isBioValid(form) {
 
 const validateRegister = (form) => {
     if (isEmpty(form)) {
-        notifyError("Please make sure to fill up the forms!");
+        notifyError("Пожалуйста заполните все поля");
         return false;
     }
 
     if (!isNamesValid(form)) {
-        notifyError("Please type valid names ( Min: 3 letters, no numbers / spaces ) ");
+        notifyError("Пожалуйста укажите реальные имена ( Min: 3 letters, no numbers / spaces )");
         return false;
     }
 
     if (!isUsernameValid(form)) {
-        notifyError("Make sure you type a valid username ( Min/max: 4/20 characters, no spaces )");
+        notifyError("Пожалуйста укажите правильное имя ( Min/max: 4/20 characters, no spaces )");
         return false;
     }
 
     if (!isPasswordValid(form)) {
-        notifyError("Make sure you type a valid password ( Min/max: 8/30 characters)");
+        notifyError("Пароль невалиден ( Min/max: 8/30 characters)");
         return false;
     }
     if (!isEmail(form)) {
-        notifyError("Make sure you typed a valid email");
+        notifyError("Вы ввели невалидный email");
         return false;
     }
 

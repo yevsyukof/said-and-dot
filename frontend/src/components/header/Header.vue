@@ -1,3 +1,15 @@
+<script>
+import {ContentLoader} from 'vue-content-loader';
+
+export default {
+  name: 'nav-header',
+  props: ['isUserLoaded', 'user'],
+  components: {
+    ContentLoader
+  }
+}
+</script>
+
 <template>
   <section name="header">
     <div class="flex flex-row justify-between">
@@ -87,21 +99,6 @@
     </div>
   </section>
 </template>
-
-<script>
-
-
-import {ContentLoader} from 'vue-content-loader';
-
-export default {
-  name: 'nav-header',
-  props: ['isUserLoaded', 'user'],
-  components: {
-    ContentLoader
-  }
-}
-</script>
-
 
 <style scoped>
 .admin {

@@ -66,7 +66,6 @@ router.beforeResolve((to, from, next) => {
     if (to.name) {
         NProgress.start()
     }
-
     next()
 })
 
@@ -77,33 +76,31 @@ router.afterEach((to, from) => {
 })
 
 
-//page setup
+//page setup (Перед каждой загрузкой страницы)
 router.beforeEach((to, from) => {
     //check which page
-
-
     switch (to.name) {
         case 'Login':
-            document.title = 'EXOCIAL - Login';
+            document.title = 'S&D - Вход';
             break;
         case 'Signup':
-            document.title = 'EXOCIAL - Sign Up';
+            document.title = 'S&D - Регистрация';
             break;
         case 'Home':
-            document.title = 'EXOCIAL - Home';
+            document.title = 'S&D - Home';
             break;
 
         case 'Profile':
-            document.title = 'EXOCIAL - Profile';
+            document.title = 'S&D - Profile';
             break;
         case 'Settings':
-            document.title = 'EXOCIAL - Settings';
+            document.title = 'S&D - Настройки';
             break;
         case 'User Profile':
-            document.title = 'EXOCIAL - User Profile';
+            document.title = 'S&D - Профиль пользователя';
             break;
         default:
-            document.title = 'EXOCIAL';
+            document.title = 'S&D';
             break;
 
         // }

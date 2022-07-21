@@ -30,4 +30,3 @@ createApp(App)
     .use(notifications)
     .component("font-awesome-icon", FontAwesomeIcon)
     .mount('#app')
-

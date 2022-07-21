@@ -1,3 +1,60 @@
+<script>
+import axios from 'axios';
+
+axios.defaults.baseURL = '/api';
+
+import moment from 'moment';
+
+export default {
+  name: 'new-post-item',
+  emits: ['closePost', 'newPost'],
+  props: {
+    user: {
+      required: true
+    },
+    isOpen: {
+      required: true
+    },
+  },
+  data() {
+    return {
+      postContent: '',
+      isEmpty: false,
+      isLoading: false,
+    }
+  },
+  methods: {
+    formatDate(date) {
+      return moment(date, 'YYYY-MM-DDThh:mm:ss.sssZ').format('DD MMM YYYY')
+    },
+    async submitPost() {
+      this.isEmpty = false;
+      if (this.postContent === '')
+        this.isEmpty = true;
+      else {
+        this.isLoading = true;
+
+        // //create new post
+        const res = await axios.post('/posts/', {author: this.user._id, content: this.postContent})
+            .then(res => {
+              if (res.status === 200)
+                return this.$notify({type: 'success', title: 'Sucess!', text: 'Post is submitted.'});
+            }, err => {
+              this.$notify({type: 'error', title: 'Error!', text: "Trouble posting..."});
+            });
+        //end create post
+
+        this.isLoading = false;
+
+        this.$emit('newPost', this.postContent);
+        this.postContent = "";
+        this.$emit('closePost');
+      }
+    }
+  }
+}
+</script>
+
 <style scoped>
 .fadeHeight-enter-active,
 .fadeHeight-leave-active {
@@ -70,64 +127,3 @@
     <font-awesome-icon icon="circle-notch" size="5x" class="animate-spin"/>
   </div>
 </template>
-
-
-<script>
-
-import axios from 'axios';
-
-
-axios.defaults.baseURL = '/api';
-
-import moment from 'moment';
-
-export default {
-  name: 'new-post-item',
-  emits: ['closePost', 'newPost'],
-  props: {
-    user: {
-      required: true
-    },
-    isOpen: {
-      required: true
-    },
-  },
-  data() {
-    return {
-      postContent: '',
-      isEmpty: false,
-      isLoading: false,
-    }
-  },
-  methods: {
-    formatDate(date) {
-      return moment(date, 'YYYY-MM-DDThh:mm:ss.sssZ').format('DD MMM YYYY')
-    },
-    async submitPost() {
-      this.isEmpty = false;
-      if (this.postContent == '')
-        this.isEmpty = true;
-      else {
-        this.isLoading = true;
-
-        // //create new post
-        const res = await axios.post('/posts/', {author: this.user._id, content: this.postContent})
-            .then(res => {
-              if (res.status == 200)
-                return this.$notify({type: 'success', title: 'Sucess!', text: 'Post is submitted.'});
-            }, err => {
-              this.$notify({type: 'error', title: 'Error!', text: "Trouble posting..."});
-            });
-        //end create post
-
-        this.isLoading = false;
-
-        this.$emit('newPost', this.postContent);
-        this.postContent = "";
-        this.$emit('closePost');
-      }
-    }
-  }
-}
-
-</script>

@@ -1,3 +1,31 @@
+<script>
+import SidebarLink from './SidebarLink.vue'
+
+export default {
+  name: 'nav-sidebar',
+  data() {
+    return {
+      open: false
+    }
+  },
+  methods: {
+    notOpen() {
+      this.open = false;
+    },
+    logout() {
+      this.$notify({clean: true});
+      this.$notify({type: 'warning', title: 'Logged out', text: "Logged out successfully."});
+      this.$router.push('/login');
+      localStorage.clear();
+    }
+  },
+  components: {
+    SidebarLink
+  }
+
+}
+</script>
+
 <template>
   <div class="sidebar md:flex flex-col md:flex-row md:min-h-screen md:relative opacity-75 shadow-lg">
     <div
@@ -41,33 +69,3 @@
     </div>
   </div>
 </template>
-
-<script>
-
-import SidebarLink from './SidebarLink.vue'
-
-
-export default {
-  name: 'nav-sidebar',
-  data() {
-    return {
-      open: false
-    }
-  },
-  methods: {
-    notOpen() {
-      this.open = false;
-    },
-    logout() {
-      this.$notify({clean: true});
-      this.$notify({type: 'warning', title: 'Logged out', text: "Logged out successfully."});
-      this.$router.push('/login');
-      localStorage.clear();
-    }
-  },
-  components: {
-    SidebarLink
-  }
-
-}
-</script>

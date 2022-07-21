@@ -1,5 +1,4 @@
 <script>
-
 import {useRoute} from "vue-router";
 
 import {computed} from "vue";
@@ -12,11 +11,10 @@ export default {
   },
   setup(props) {
     const route = useRoute();
-    const isActive = computed(() => route.path == props.to)
+    const isActive = computed(() => route.path === props.to)
     return {isActive}
   }
 }
-
 </script>
 
 <template>

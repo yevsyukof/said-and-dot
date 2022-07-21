@@ -12,7 +12,7 @@ module.exports = {
     darkMode: 'class',
     content: [],
     theme: {
-        extend: {},
+        // extend: {},
         screens: {
             '2xs': '1px',
             'xs': '400px',

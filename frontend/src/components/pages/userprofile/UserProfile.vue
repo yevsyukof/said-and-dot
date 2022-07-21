@@ -1,3 +1,127 @@
+<script>
+import {ContentLoader} from 'vue-content-loader';
+
+import Post from '../../cards/posts/Post.vue';
+
+import axios from 'axios';
+
+axios.defaults.baseURL = '/api';
+
+export default {
+  name: 'user-profile-page',
+  props: ['isUserLoaded', 'user'],
+  data() {
+    return {
+      isFollowed: false,
+      isLoaded: false,
+      isPostsLoaded: false,
+      profileFollowers: 0,
+      profileUser: {followers: [], followings: []},
+      posts: {}
+    }
+  },
+  methods: {
+    async getUser() {
+      await axios.get('/users/username/' + this.$route.params.username)
+          .then(res => {
+            if (res.status === 201) {
+              this.$notify({
+                type: 'error',
+                title: 'User not found!',
+                text: "The user you're trying to reach is not found."
+              });
+              this.$router.push('/');
+              return;
+            }
+            this.profileUser = res.data.user;
+            this.profileFollowers = this.profileUser.followers.length;
+            this.checkIfFollowed(this.profileUser);
+          })
+    },
+    async getPosts() {
+      await this.getUser().then(async () => {
+        this.isLoaded = true;
+        if (this.user.username === this.$route.params.username)
+          return this.$router.push('/profile')
+        await axios.get('/posts/' + this.profileUser._id + '/posts')
+            .then(res => {
+              this.posts = res.data;
+              this.isPostsLoaded = true;
+            })
+      })
+    },
+    checkIfFollowed(user) {
+      user.followers.forEach(element => {
+        if (element._id === this.user._id) {
+          this.isFollowed = true;
+        }
+
+      });
+    },
+    async followUser() {
+      let instruction = '';
+      if (this.isFollowed) {
+        instruction = '/unfollow';
+        this.profileFollowers--;
+        this.user.myFollowings--;
+      } else {
+        instruction = '/follow';
+        this.profileFollowers++;
+        this.user.myFollowings++;
+      }
+      this.isFollowed = !this.isFollowed;
+
+      await axios.put('/users/' + this.profileUser._id + instruction, {userId: this.user.id})
+          .then(res => {
+            console.log(res.data);
+          })
+    },
+  },
+  watch: {
+    isUserLoaded: async function (newValue) {
+      if (newValue)
+        await this.getPosts()
+    }
+  },
+  async created() {
+    if (this.isUserLoaded)
+      await this.getPosts()
+  },
+  components: {
+    Post,
+    ContentLoader
+  }
+}
+</script>
+
+<style scoped>
+.post-list-move {
+  transition: transform 0.7s ease;
+}
+
+.post-list-enter-active,
+.post-list-leave-active {
+  transition: all 0.3s ease-in;
+}
+
+.post-list-enter-from,
+.post-list-leave-to {
+  opacity: 0;
+}
+
+.admin {
+  padding: 0.5rem;
+  box-shadow: 0 1px 5px 2px rgba(225, 131, 131, 0.25),
+  0 -1px 0 0 rgba(165, 181, 222, 0.25),
+  1px 0 0 0 rgba(225, 131, 151, 0.25),
+  -1px 0 0 0 rgba(165, 181, 222, 0.25),
+  1px -1px 0 0 rgba(195, 156, 208, 0.5),
+  -1px 1px 0 0 rgba(188, 208, 156, 0.5),
+  1px 1px 0 0 rgba(255, 105, 105, 0.75),
+  -1px -1px 0 0 rgba(235, 208, 135, 0.75);
+}
+</style>
+
 <template>
   <div class="flex-none">
     <div class>
@@ -175,130 +299,3 @@
     </div>
   </div>
 </template>
-
-<script>
-
-import {ContentLoader} from 'vue-content-loader';
-
-import Post from '../../cards/posts/Post.vue';
-
-import axios from 'axios';
-
-axios.defaults.baseURL = '/api';
-
-
-export default {
-  name: 'user-profile-page',
-  props: ['isUserLoaded', 'user'],
-  data() {
-    return {
-      isFollowed: false,
-      isLoaded: false,
-      isPostsLoaded: false,
-      profileFollowers: 0,
-      profileUser: {followers: [], followings: []},
-      posts: {}
-    }
-  },
-  methods: {
-    async getUser() {
-      await axios.get('/users/username/' + this.$route.params.username)
-          .then(res => {
-            if (res.status == 201) {
-              this.$notify({
-                type: 'error',
-                title: 'User not found!',
-                text: "The user you're trying to reach is not found."
-              });
-              this.$router.push('/');
-              return;
-            }
-            this.profileUser = res.data.user;
-            this.profileFollowers = this.profileUser.followers.length;
-            this.checkIfFollowed(this.profileUser);
-          })
-    },
-    async getPosts() {
-      await this.getUser().then(async () => {
-        this.isLoaded = true;
-        if (this.user.username == this.$route.params.username)
-          return this.$router.push('/profile')
-        await axios.get('/posts/' + this.profileUser._id + '/posts')
-            .then(res => {
-              this.posts = res.data;
-              this.isPostsLoaded = true;
-            })
-      })
-    },
-    checkIfFollowed(user) {
-      user.followers.forEach(element => {
-        if (element._id == this.user._id) {
-          this.isFollowed = true;
-        }
-
-      });
-    },
-    async followUser() {
-      let instruction = '';
-      if (this.isFollowed) {
-        instruction = '/unfollow';
-        this.profileFollowers--;
-        this.user.myFollowings--;
-      } else {
-        instruction = '/follow';
-        this.profileFollowers++;
-        this.user.myFollowings++;
-      }
-      this.isFollowed = !this.isFollowed;
-
-      await axios.put('/users/' + this.profileUser._id + instruction, {userId: this.user.id})
-          .then(res => {
-            console.log(res.data);
-          })
-    },
-  },
-  watch: {
-    isUserLoaded: async function (newValue) {
-      if (newValue)
-        await this.getPosts()
-    }
-  },
-  async created() {
-    if (this.isUserLoaded)
-      await this.getPosts()
-  },
-  components: {
-    Post,
-    ContentLoader
-  }
-}
-</script>
-
-
-<style scoped>
-.post-list-move {
-  transition: transform 0.7s ease;
-}
-
-.post-list-enter-active,
-.post-list-leave-active {
-  transition: all 0.3s ease-in;
-}
-
-.post-list-enter-from,
-.post-list-leave-to {
-  opacity: 0;
-}
-
-.admin {
-  padding: 0.5rem;
-  box-shadow: 0 1px 5px 2px rgba(225, 131, 131, 0.25),
-  0 -1px 0 0 rgba(165, 181, 222, 0.25),
-  1px 0 0 0 rgba(225, 131, 151, 0.25),
-  -1px 0 0 0 rgba(165, 181, 222, 0.25),
-  1px -1px 0 0 rgba(195, 156, 208, 0.5),
-  -1px 1px 0 0 rgba(188, 208, 156, 0.5),
-  1px 1px 0 0 rgba(255, 105, 105, 0.75),
-  -1px -1px 0 0 rgba(235, 208, 135, 0.75);
-}
-</style>

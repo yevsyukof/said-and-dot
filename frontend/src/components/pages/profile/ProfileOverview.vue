@@ -1,3 +1,119 @@
+<script>
+import axios from 'axios';
+
+import {validateProfileEdit} from '../../validator';
+
+axios.defaults.baseURL = '/api';
+
+export default {
+  name: 'profile-overview',
+  props: ['user'],
+  data() {
+    return {
+      isEdit: false,
+      form: {
+        firstname: '',
+        lastname: '',
+        bio: '',
+      },
+      selectedAvatar: null,
+      isAvatarSelected: false,
+      isAvatarUploading: false,
+      isAvatarUploaded: false,
+    };
+  },
+  methods: {
+    updateInfo() {
+      this.user.firstname = this.form.firstname;
+      this.user.lastname = this.form.lastname;
+      this.user.bio = this.form.bio;
+    },
+    notEdit() {
+
+      this.isEdit = !this.isEdit
+      if (this.isEdit) {
+        this.form.firstname = this.user.firstname;
+        this.form.lastname = this.user.lastname;
+        this.form.bio = this.user.bio;
+        return;
+      }
+      this.avatarUnselected();
+      this.cancelUploadAvatar();
+
+    },
+    async saveEdit() {
+      if (!validateProfileEdit(this.form))
+        return;
+      await axios.put('/users/' + this.user._id + '/edit', {
+        firstname: this.form.firstname,
+        lastname: this.form.lastname,
+        bio: this.form.bio,
+        token: localStorage.getItem('auth_token')
+      }).then(res => {
+        if (res.status == 200) {
+          this.$notify({type: 'success', text: 'Successfully edited profile.'})
+          this.updateInfo();
+        } else
+          console.log(res.data)
+      });
+
+      this.notEdit();
+    },
+    onAvatarSelected(event) {
+      let file = event.target.files[0]
+      if (file) {
+        this.selectedAvatar = file;
+        this.avatarSelected();
+        this.$refs.avatarName.innerText = file.name;
+      }
+    },
+    avatarSelected() {
+      this.isAvatarSelected = true;
+    },
+    avatarUnselected() {
+      this.isAvatarSelected = false;
+    },
+    uploadAvatar() {
+      this.isAvatarUploading = true;
+      // let formData = new FormData();
+      // formData.append('avatar', this.selectedAvatar);
+      // axios.post('/users/' + this.user._id + '/avatar', formData, {
+      //     headers: {
+      //         'Content-Type': 'multipart/form-data',
+      //         'token': localStorage.getItem('auth_token')
+      //     }
+      // }).then(res => {
+      //     if (res.status == 200) {
+      //         this.$notify({ type: 'success', text: 'Successfully uploaded avatar.' })
+      //         this.isAvatarUploaded = true;
+      //         this.isAvatarUploading = false;
+      //     }
+      //     else
+      //         console.log(res.data)
+      // });
+    },
+    cancelUploadAvatar() {
+      this.isAvatarUploading = false;
+    }
+  }
+
+}
+</script>
+
+<style>
+.admin {
+  padding: 0.5rem;
+  box-shadow: 0 1px 5px 2px rgba(225, 131, 131, 0.25),
+  0 -1px 0 0 rgba(165, 181, 222, 0.25),
+  1px 0 0 0 rgba(225, 131, 151, 0.25),
+  -1px 0 0 0 rgba(165, 181, 222, 0.25),
+  1px -1px 0 0 rgba(195, 156, 208, 0.5),
+  -1px 1px 0 0 rgba(188, 208, 156, 0.5),
+  1px 1px 0 0 rgba(255, 105, 105, 0.75),
+  -1px -1px 0 0 rgba(235, 208, 135, 0.75);
+}
+</style>
+
 <template>
   <div
       class="mt-8 w-full flex justify-between sm:flex-row 2xs:flex-col items-center bg-secondary rounded-xl sm:pl-8 2xs:px-0 sm:py-8 2xs:pt-8 shadow-lg"
@@ -142,123 +258,3 @@
     </div>
   </div>
 </template>
-
-<script>
-
-import axios from 'axios';
-
-import {validateProfileEdit} from '../../validator';
-
-axios.defaults.baseURL = '/api';
-
-
-export default {
-  name: 'profile-overview',
-  props: ['user'],
-  data() {
-    return {
-      isEdit: false,
-      form: {
-        firstname: '',
-        lastname: '',
-        bio: '',
-      },
-      selectedAvatar: null,
-      isAvatarSelected: false,
-      isAvatarUploading: false,
-      isAvatarUploaded: false,
-    };
-  },
-  methods: {
-    updateInfo() {
-      this.user.firstname = this.form.firstname;
-      this.user.lastname = this.form.lastname;
-      this.user.bio = this.form.bio;
-    },
-    notEdit() {
-
-      this.isEdit = !this.isEdit
-      if (this.isEdit) {
-        this.form.firstname = this.user.firstname;
-        this.form.lastname = this.user.lastname;
-        this.form.bio = this.user.bio;
-        return;
-      }
-      this.avatarUnselected();
-      this.cancelUploadAvatar();
-
-    },
-    async saveEdit() {
-      if (!validateProfileEdit(this.form))
-        return;
-      await axios.put('/users/' + this.user._id + '/edit', {
-        firstname: this.form.firstname,
-        lastname: this.form.lastname,
-        bio: this.form.bio,
-        token: localStorage.getItem('auth_token')
-      }).then(res => {
-        if (res.status == 200) {
-          this.$notify({type: 'success', text: 'Successfully edited profile.'})
-          this.updateInfo();
-        } else
-          console.log(res.data)
-      });
-
-      this.notEdit();
-    },
-    onAvatarSelected(event) {
-      let file = event.target.files[0]
-      if (file) {
-        this.selectedAvatar = file;
-        this.avatarSelected();
-        this.$refs.avatarName.innerText = file.name;
-      }
-    },
-    avatarSelected() {
-      this.isAvatarSelected = true;
-    },
-    avatarUnselected() {
-      this.isAvatarSelected = false;
-    },
-    uploadAvatar() {
-      this.isAvatarUploading = true;
-      // let formData = new FormData();
-      // formData.append('avatar', this.selectedAvatar);
-      // axios.post('/users/' + this.user._id + '/avatar', formData, {
-      //     headers: {
-      //         'Content-Type': 'multipart/form-data',
-      //         'token': localStorage.getItem('auth_token')
-      //     }
-      // }).then(res => {
-      //     if (res.status == 200) {
-      //         this.$notify({ type: 'success', text: 'Successfully uploaded avatar.' })
-      //         this.isAvatarUploaded = true;
-      //         this.isAvatarUploading = false;
-      //     }
-      //     else
-      //         console.log(res.data)
-      // });
-    },
-    cancelUploadAvatar() {
-      this.isAvatarUploading = false;
-    }
-  }
-
-}
-
-</script>
-
-
-<style>
-.admin {
-  padding: 0.5rem;
-  box-shadow: 0 1px 5px 2px rgba(225, 131, 131, 0.25),
-  0 -1px 0 0 rgba(165, 181, 222, 0.25),
-  1px 0 0 0 rgba(225, 131, 151, 0.25),
-  -1px 0 0 0 rgba(165, 181, 222, 0.25),
-  1px -1px 0 0 rgba(195, 156, 208, 0.5),
-  -1px 1px 0 0 rgba(188, 208, 156, 0.5),
-  1px 1px 0 0 rgba(255, 105, 105, 0.75),
-  -1px -1px 0 0 rgba(235, 208, 135, 0.75);
-}
-</style>

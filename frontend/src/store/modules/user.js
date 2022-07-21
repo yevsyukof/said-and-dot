@@ -24,15 +24,15 @@ export default {
         }
     },
     mutations: {
-        SET_USER(state, payload) {
-            state._id = payload._id;
-            state.firstname = payload.firstname;
-            state.lastname = payload.lastname;
-            state.username = payload.username;
-            state.email = payload.email;
-            state.avatar = payload.avatar;
-            state.isAdmin = payload.isAdmin;
-            state.isMod = payload.isMod;
+        SET_USER(curState, payload) {  // поменял state на curState
+            curState._id = payload._id;
+            curState.firstname = payload.firstname;
+            curState.lastname = payload.lastname;
+            curState.username = payload.username;
+            curState.email = payload.email;
+            curState.avatar = payload.avatar;
+            curState.isAdmin = payload.isAdmin;
+            curState.isMod = payload.isMod;
         }
     },
     actions: {

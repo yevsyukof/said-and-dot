@@ -1,5 +1,4 @@
 <script>
-
 import Like from './ui/Like.vue'
 
 import moment from 'moment'
@@ -7,10 +6,6 @@ import moment from 'moment'
 import axios from 'axios';
 
 axios.defaults.baseURL = '/api';
-
-
-// import io from 'socket.io-client';
-
 
 export default {
   name: 'post-item',
@@ -41,7 +36,7 @@ export default {
     },
     checkIfLiked() {
       this.post.likes.forEach(element => {
-        if (this.currentUser._id == element._id) {
+        if (this.currentUser._id === element._id) {
           this.isLiked = true
           this.isLocallyLiked = true
         }
@@ -69,7 +64,7 @@ export default {
         return;
       }
       likers.forEach(async (element, index) => {
-        if (element._id == this.currentUser._id) {
+        if (element._id === this.currentUser._id) {
           likers.splice(index, 1);
           this.isLocallyLiked = false;
 
@@ -132,7 +127,7 @@ export default {
                             </span>
                         </div>
                     </span>
-          <span class="ml-auto" v-if="currentUser.id == post.author._id">
+          <span class="ml-auto" v-if="currentUser.id === post.author._id">
                         <font-awesome-icon :icon="['fas', 'trash-alt']"
                                            class="mr-3 w-4 cursor-pointer text-t-accent hover:text-red-500/70"/>
                         <font-awesome-icon :icon="['fas', 'edit']"

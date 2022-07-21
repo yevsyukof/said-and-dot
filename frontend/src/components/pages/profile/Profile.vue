@@ -1,3 +1,116 @@
+<script>
+import {ContentLoader} from 'vue-content-loader';
+
+import ProfileOverview from './ProfileOverview.vue';
+
+import Post from '../../cards/posts/Post.vue';
+
+import axios from 'axios';
+import ProfileOverview1 from './ProfileOverview.vue';
+
+axios.defaults.baseURL = '/api';
+
+export default {
+  name: 'profile-page',
+  props: ['isUserLoaded', 'user'],
+  data() {
+    return {
+      isPostsLoaded: false,
+      posts: {},
+      // isEdit: false,
+      // form: {
+      //     firstname: "",
+      //     lastname: "",
+      //     email: "",
+      //     bio: "",
+      // },
+      // selectedAvatar: null,
+    }
+  },
+  methods: {
+    async getPosts() {
+      await axios.get('/posts/' + this.user._id + '/posts')
+          .then(res => {
+            this.posts = res.data;
+            this.isPostsLoaded = true;
+          })
+    },
+    // updateInfo() {
+    //     this.user.firstname = this.form.firstname;
+    //     this.user.lastname = this.form.lastname;
+    //     this.user.bio = this.form.bio;
+    // },
+    // notEdit() {
+    //     this.isEdit = !this.isEdit
+    //     if (this.isEdit) {
+    //         this.form.firstname = this.user.firstname;
+    //         this.form.lastname = this.user.lastname;
+    //         this.form.bio = this.user.bio;
+    //     }
+    // },
+    // async saveEdit() {
+    //     if (!validateProfileEdit(this.form))
+    //         return;
+    //     await axios.put('/users/' + this.user._id + '/edit', {
+    //         firstname: this.form.firstname,
+    //         lastname: this.form.lastname,
+    //         bio: this.form.bio,
+    //         token: localStorage.getItem('auth_token')
+    //     }).then(res => {
+    //         if (res.status == 200) {
+    //             this.$notify({ type: 'success', text: 'Successfully edited profile.' })
+    //             this.updateInfo();
+    //         }
+    //         else
+    //             console.log(res.data)
+    //     });
+
+    //     this.notEdit();
+    // },
+    // onAvatarSelected(event) {
+    //     let file = event.target.files[0]
+    //     if(file){
+    //         this.selectedAvatar = file;
+    //         this.$refs.avatarName.innerText = file.name;
+    //         console.log(file.name);
+    //     }
+    // }
+  },
+  watch: {
+    isUserLoaded: async function (newValue) {
+      if (newValue)
+        await this.getPosts()
+    }
+  },
+  async created() {
+    if (this.isUserLoaded)
+      await this.getPosts()
+  },
+  components: {
+    ProfileOverview,
+    Post,
+    ContentLoader,
+    ProfileOverview1
+  }
+}
+</script>
+
+<style scoped>
+.post-list-move {
+  transition: transform 0.7s ease;
+}
+
+.post-list-enter-active,
+.post-list-leave-active {
+  transition: all 0.3s ease-in;
+}
+
+.post-list-enter-from,
+.post-list-leave-to {
+  opacity: 0;
+}
+</style>
+
 <template>
   <div class="flex-none">
     <div class>
@@ -104,121 +217,3 @@
     </div>
   </div>
 </template>
-
-<script>
-
-
-import {ContentLoader} from 'vue-content-loader';
-
-import ProfileOverview from './ProfileOverview.vue';
-
-import Post from '../../cards/posts/Post.vue';
-
-import axios from 'axios';
-import ProfileOverview1 from './ProfileOverview.vue';
-
-axios.defaults.baseURL = '/api';
-
-
-export default {
-  name: 'profile-page',
-  props: ['isUserLoaded', 'user'],
-  data() {
-    return {
-      isPostsLoaded: false,
-      posts: {},
-      // isEdit: false,
-      // form: {
-      //     firstname: "",
-      //     lastname: "",
-      //     email: "",
-      //     bio: "",
-      // },
-      // selectedAvatar: null,
-    }
-  },
-  methods: {
-    async getPosts() {
-      await axios.get('/posts/' + this.user._id + '/posts')
-          .then(res => {
-            this.posts = res.data;
-            this.isPostsLoaded = true;
-          })
-    },
-    // updateInfo() {
-    //     this.user.firstname = this.form.firstname;
-    //     this.user.lastname = this.form.lastname;
-    //     this.user.bio = this.form.bio;
-    // },
-    // notEdit() {
-    //     this.isEdit = !this.isEdit
-    //     if (this.isEdit) {
-    //         this.form.firstname = this.user.firstname;
-    //         this.form.lastname = this.user.lastname;
-    //         this.form.bio = this.user.bio;
-    //     }
-    // },
-    // async saveEdit() {
-    //     if (!validateProfileEdit(this.form))
-    //         return;
-    //     await axios.put('/users/' + this.user._id + '/edit', {
-    //         firstname: this.form.firstname,
-    //         lastname: this.form.lastname,
-    //         bio: this.form.bio,
-    //         token: localStorage.getItem('auth_token')
-    //     }).then(res => {
-    //         if (res.status == 200) {
-    //             this.$notify({ type: 'success', text: 'Successfully edited profile.' })
-    //             this.updateInfo();
-    //         }
-    //         else
-    //             console.log(res.data)
-    //     });
-
-    //     this.notEdit();
-    // },
-    // onAvatarSelected(event) {
-    //     let file = event.target.files[0]
-    //     if(file){
-    //         this.selectedAvatar = file;
-    //         this.$refs.avatarName.innerText = file.name;
-    //         console.log(file.name);
-    //     }
-    // }
-  },
-  watch: {
-    isUserLoaded: async function (newValue) {
-      if (newValue)
-        await this.getPosts()
-    }
-  },
-  async created() {
-    if (this.isUserLoaded)
-      await this.getPosts()
-  },
-  components: {
-    ProfileOverview,
-    Post,
-    ContentLoader,
-    ProfileOverview1
-  }
-}
-</script>
-
-
-<style scoped>
-.post-list-move {
-  transition: transform 0.7s ease;
-}
-
-.post-list-enter-active,
-.post-list-leave-active {
-  transition: all 0.3s ease-in;
-}
-
-.post-list-enter-from,
-.post-list-leave-to {
-  opacity: 0;
-}
-
-</style>

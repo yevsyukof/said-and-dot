@@ -1,3 +1,12 @@
+<script>
+export default {
+  Name: 'chat-box',
+  data() {
+    return {}
+  }
+}
+</script>
+
 <template>
   <div
       class="bg-secondary p-8 w-80 h-auto z-20 rounded-xl shadow-xl opacity-[.99]"
@@ -43,18 +52,6 @@
   </div>
 </template>
 
-
-<script>
-
-export default {
-  Name: 'chat-box',
-  data() {
-    return {}
-  }
-}
-
-</script>
-
-
 <style>
+
 </style>

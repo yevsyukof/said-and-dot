@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a232ae75-64c8-4b79-a77a-5412c686b672" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/public/ico/snd-icon-109x109.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ico/snd-icon-128x128.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ico/snd-icon-500x500.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nprogress.css" beforeDir="false" afterPath="$PROJECT_DIR$/nprogress.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/android-icon-144x144.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/android-icon-192x192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/android-icon-36x36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/android-icon-48x48.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/android-icon-72x72.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/android-icon-96x96.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/apple-icon-114x114.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/apple-icon-57x57.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/apple-icon-60x60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/apple-icon-72x72.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/apple-icon-76x76.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/apple-icon-precomposed.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/apple-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/browserconfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/ico/browserconfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/favicon-16x16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/favicon-32x32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/favicon-96x96.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/ico/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/ms-icon-144x144.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/ms-icon-150x150.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/ms-icon-310x310.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ico/ms-icon-70x70.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Main.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Signup.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Signup.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/validator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/modules/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/modules/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/theme.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/vite.config.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2CGGbvx8RAZd7oUZfVwATC5kLn1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/yevsyukof/git/said-and-dot/frontend/public/ico",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "/home/yevsyukof/git/said-and-dot/frontend/node_modules/prettier",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "ts.external.directory.path": "/var/lib/snapd/snap/webstorm/272/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/ico" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="dev" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a232ae75-64c8-4b79-a77a-5412c686b672" name="Changes" comment="" />
+      <created>1658421583207</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1658421583207</updated>
+      <workItem from="1658421584577" duration="13252000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
