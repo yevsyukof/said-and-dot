@@ -1,9 +1,8 @@
 <script>
 import Sidebar from './sidebar/Sidebar.vue';
 import Header from './header/Header.vue';
-import axios from 'axios';
 
-axios.defaults.baseURL = '/api';
+import {axiosInstance} from "../service/axiosService";
 
 export default {
   name: 'main-view',
@@ -28,13 +27,22 @@ export default {
   created() {
     //user not auth'd
     if (!localStorage.getItem('auth_token')) {
-      this.$notify({type: 'error', title: 'No login!', text: "Please log in first."});
+      this.$notify({
+        type: 'error',
+        title: 'No login!',
+        text: "Please log in first."
+      });
       this.$router.push('/login');
     }
   },
   async mounted() {
-    await axios.get('/auth/user', {headers: {token: localStorage.getItem('auth_token')}})
-        .then(res => {
+    await axiosInstance.get('/auth/user', {
+          headers: {
+            token: localStorage.getItem('auth_token')
+          }
+        }
+    ).then(
+        res => {
           this.user = res.data.user;
           this.user.myFollowings = this.user.followings.length;
           this.isUserLoaded = true;
@@ -46,7 +54,11 @@ export default {
   methods: {
     logout() {
       this.$notify({clean: true});
-      this.$notify({type: 'warning', title: 'Logged out', text: "Logged out successfully."});
+      this.$notify({
+        type: 'warning',
+        title: 'Logged out',
+        text: "Logged out successfully."
+      });
       this.$router.push('/login');
       localStorage.clear();
     }

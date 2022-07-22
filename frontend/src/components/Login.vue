@@ -1,8 +1,5 @@
 <script>
-import axios from 'axios';
 import {axiosInstance} from "../service/axiosService";
-
-// import {axiosInstance} from "../service/axiosService";
 
 export default {
   name: 'login-page',
@@ -24,29 +21,39 @@ export default {
     async login() {
       this.loading = true;
 
-      await axiosInstance.post('/auth/login', {
-            username: "asdasd",
-            password: "asdasdasd"
-            // username: this.username,
-            // password: this.password
-          }
-      ).then(response => {
-        if (response.status === 201) {
-          this.$notify({type: 'error', title: 'Error!', text: "Invalid credentials..."});
-          return;
-        }
+      // TODO удалить
+      localStorage.setItem('auth_token', "asdasd");
+      this.$store.authToken = "asdasd"
+      this.$router.push('/');
+      // TODO
 
-        this.$notify({
-          clean: true
-        })
-        this.$notify({type: 'success', title: 'Sucess!', text: 'User logged in.'});
-
-        localStorage.setItem('auth_token', response.data.token);
-        this.$store.authToken = response.data.token
-        this.$router.push('/');
-      }, err => {
-        this.$notify({type: 'error', title: 'Error!', text: "Trouble logging in..."});
-      });
+      // await axiosInstance.post('/auth/login', {
+      //       username: this.username,
+      //       password: this.password
+      //     }
+      // ).then(
+      //     response => {
+      //       if (response.status === 201) {
+      //         this.$notify({type: 'error', title: 'Error!', text: "Invalid credentials..."});
+      //         return;
+      //       }
+      //
+      //       this.$notify({
+      //         clean: true
+      //       })
+      //       this.$notify({
+      //         type: 'success',
+      //         title: 'Sucess!',
+      //         text: 'User logged in.'
+      //       });
+      //
+      //       localStorage.setItem('auth_token', response.data.token);
+      //       this.$store.authToken = response.data.token
+      //       this.$router.push('/');
+      //     }, err => {
+      //       this.$notify({type: 'error', title: 'Error!', text: "Trouble logging in..."});
+      //     }
+      // );
 
       this.loading = false;
     },

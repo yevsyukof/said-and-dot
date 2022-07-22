@@ -4,10 +4,7 @@ import NewPost from '../../cards/posts/NewPost.vue';
 
 import moment from 'moment'
 
-import axios from 'axios';
-
-axios.defaults.baseURL = '/api';
-
+import {axiosInstance} from "../../../service/axiosService";
 
 export default {
   name: 'home-page',
@@ -33,29 +30,33 @@ export default {
       this.isPostOpen = !this.isPostOpen;
     },
     async getFeed() {
-      await axios.post('/posts/feed/all', {userId: this.user._id})
-          .then(res => {
-            this.feed = res.data;
-            this.isFeedLoaded = true;
-          })
-
+      await axiosInstance
+          .post('/posts/feed/all', {userId: this.user._id}
+          ).then(
+              res => {
+                this.feed = res.data;
+                this.isFeedLoaded = true;
+              }
+          )
     }
   },
   watch: {
-    isUserLoaded: async function (newer, old) {
-      if (newer)
-        await this.getFeed()
-    }
+    isUserLoaded:
+        async function (newer, old) {
+          if (newer) {
+            await this.getFeed()
+          }
+        }
   },
   async created() {
-    if (this.isUserLoaded)
+    if (this.isUserLoaded) {
       await this.getFeed()
+    }
   },
   components: {
     Post,
     NewPost
   }
-
 }
 </script>
 

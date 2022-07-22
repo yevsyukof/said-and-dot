@@ -33,10 +33,22 @@ export default {
         x-data="{ open: false }"
     >
       <div class="flex-shrink-0 px-6 py-4 flex flex-row items-center justify-between">
+        <!--Это логотип слева на странице-->
+<!--        <a-->
+<!--            @click="this.$router.push('/')"-->
+<!--            class=" tracking-widest font-extrabold text-2xl uppercase rounded-lg dark-mode:text-gray-200 focus:outline-none focus:shadow-outline cursor-pointer"-->
+<!--        >Сказал и точка</a>-->
+
+
+<!--TODO:::::::::::::::::::::::::::::::-->
         <a
             @click="this.$router.push('/')"
-            class=" tracking-widest font-extrabold text-2xl uppercase rounded-lg dark-mode:text-gray-200 focus:outline-none focus:shadow-outline cursor-pointer"
-        >EXOCIAL</a>
+        >
+          <img src="/public/ico/snd-icon-500x500.png" alt="MDN logo">
+        </a>
+
+
+
         <button
             class="rounded-lg md:hidden focus:outline-none focus:shadow-outline text-t-primary hover:text-gray-300/80"
             @click="open = !open"
@@ -57,14 +69,15 @@ export default {
           </svg>
         </button>
       </div>
+
       <nav
           :class="{ 'block': open, 'hidden': !open }"
           class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto"
       >
-        <SidebarLink to="/" icon="home" @click="notOpen">Home</SidebarLink>
-        <SidebarLink to="/profile" icon="user" @click="notOpen">Profile</SidebarLink>
-        <SidebarLink to="/settings" icon="cog" @click="notOpen">Settings</SidebarLink>
-        <SidebarLink to="" icon="sign-out-alt" @click="logout">Logout</SidebarLink>
+        <SidebarLink to="/" icon="home" @click="notOpen">Лента</SidebarLink>
+        <SidebarLink to="/profile" icon="user" @click="notOpen">Профиль</SidebarLink>
+        <SidebarLink to="/settings" icon="cog" @click="notOpen">Настройки</SidebarLink>
+        <SidebarLink to="" icon="sign-out-alt" @click="logout">Выйти</SidebarLink>
       </nav>
     </div>
   </div>

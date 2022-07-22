@@ -6,8 +6,13 @@ import {computed} from "vue";
 export default {
   name: 'nav-sidebarlink',
   props: {
-    to: {type: String},
-    icon: {type: String, required: true}
+    to: {
+      type: String
+    },
+    icon: {
+      type: String,
+      required: true
+    }
   },
   setup(props) {
     const route = useRoute();

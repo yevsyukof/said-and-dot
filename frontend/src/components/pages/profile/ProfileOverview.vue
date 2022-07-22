@@ -50,7 +50,7 @@ export default {
         bio: this.form.bio,
         token: localStorage.getItem('auth_token')
       }).then(res => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           this.$notify({type: 'success', text: 'Successfully edited profile.'})
           this.updateInfo();
         } else

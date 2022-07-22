@@ -1,15 +1,13 @@
 <script>
-import axios from 'axios';
+import {axiosInstance} from "../service/axiosService";
 
 import {validateRegister} from './validator';
-
-axios.defaults.baseURL = '/api';
 
 export default {
   name: 'signup-page',
   data() {
     return {
-      form: {
+      signupData: {
         firstname: '',
         lastname: '',
         username: '',
@@ -30,33 +28,33 @@ export default {
     async register() {
       this.loading = true;
 
-      let user = this.form;
-
-      const res = await axios.post('/auth/signup', user)
-          .then(res => {
-            if (res.status === 201) {
-              this.$notify({type: 'error', title: 'Error!', text: "Username already registered..."});
-              return;
-            }
-            this.$notify({clean: true});
-            this.$notify({type: 'success', title: 'Sucess!', text: 'User registered successfully'});
-            this.$router.push('/login');
-          }, err => {
-            this.$notify({type: 'error', title: 'Error!', text: "Trouble registering..."});
-          });
+      await axiosInstance.post('/auth/signup', this.signupData)
+          .then(
+              res => {
+                if (res.status === 201) {
+                  this.$notify({type: 'error', title: 'Error!', text: "Username already registered..."});
+                  return;
+                }
+                this.$notify({clean: true});
+                this.$notify({type: 'success', title: 'Sucess!', text: 'User registered successfully'});
+                this.$router.push('/login');
+              }, err => {
+                this.$notify({type: 'error', title: 'Error!', text: "Trouble registering..."});
+              }
+          );
 
       this.loading = false;
 
     },
     reset() {
-      this.form.firstname = "";
-      this.form.lastname = "";
-      this.form.username = "";
-      this.form.password = "";
-      this.form.email = "";
+      this.signupData.firstname = "";
+      this.signupData.lastname = "";
+      this.signupData.username = "";
+      this.signupData.password = "";
+      this.signupData.email = "";
     },
     validate() {
-      return validateRegister(this.form)
+      return validateRegister(this.signupData)
     },
     processUserInfo() {
       if (this.validate()) {
@@ -104,7 +102,7 @@ export default {
             placeholder="Введите имя"
             class="block rounded focus:outline-none text-secondary bg-t-accent p-4 placeholder:text-primary"
             autocomplete="off"
-            v-model="form.firstname"
+            v-model="signupData.firstname"
         />
       </div>
 
@@ -116,7 +114,7 @@ export default {
             placeholder="Введите фамилию"
             class="block rounded focus:outline-none text-secondary bg-t-accent p-4 placeholder:text-primary"
             autocomplete="off"
-            v-model="form.lastname"
+            v-model="signupData.lastname"
         />
       </div>
 
@@ -128,7 +126,7 @@ export default {
             placeholder="Придумайте логин"
             class="block rounded focus:outline-none text-secondary bg-t-accent p-4 placeholder:text-primary"
             autocomplete="off"
-            v-model="form.username"
+            v-model="signupData.username"
         />
       </div>
 
@@ -140,7 +138,7 @@ export default {
             placeholder="Введите пароль"
             class="block rounded focus:outline-none text-secondary bg-t-accent p-4 placeholder:text-primary"
             autocomplete="off"
-            v-model="form.password"
+            v-model="signupData.password"
         />
       </div>
 
@@ -152,7 +150,7 @@ export default {
             placeholder="Введите email"
             class="block rounded focus:outline-none text-secondary bg-t-accent p-4 placeholder:text-primary"
             autocomplete="off"
-            v-model="form.email"
+            v-model="signupData.email"
         />
       </div>
 
