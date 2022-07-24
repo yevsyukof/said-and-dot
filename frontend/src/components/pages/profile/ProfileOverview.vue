@@ -44,7 +44,7 @@ export default {
     async saveEdit() {
       if (!validateProfileEdit(this.form))
         return;
-      await axios.put('/users/' + this.user._id + '/edit', {
+      await axios.put('/users/' + this.user.id + '/edit', {
         firstname: this.form.firstname,
         lastname: this.form.lastname,
         bio: this.form.bio,
@@ -77,7 +77,7 @@ export default {
       this.isAvatarUploading = true;
       // let formData = new FormData();
       // formData.append('avatar', this.selectedAvatar);
-      // axios.post('/users/' + this.user._id + '/avatar', formData, {
+      // axios.post('/users/' + this.user.id + '/avatar', formData, {
       //     headers: {
       //         'Content-Type': 'multipart/form-data',
       //         'token': localStorage.getItem('auth_token')

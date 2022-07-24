@@ -32,18 +32,19 @@ export default {
       return moment(date, "YYYY-MM-DDThh:mm:ss.sssZ").fromNow()
     },
     checkIfLiked() {
-      this.post.likes.forEach(element => {
-        if (this.currentUser._id === element._id) {
+      this.post.likes.forEach(userWhoLiked => {
+        if (this.currentUser.id === userWhoLiked.id) {
           this.isLiked = true
           this.isLocallyLiked = true
         }
       });
     },
     async likePost(postId) {
-      let likers = this.post.likes;
-      let userId = this.currentUser._id;
+      let likes = this.post.likes;
+      let userId = this.currentUser.id;
+
       if (!this.isLocallyLiked) {
-        likers.push(this.currentUser)
+        likes.push(this.currentUser)
         this.isLocallyLiked = true
 
         await axiosInstance.put('/posts/' + postId + '/like', {userId: userId})
@@ -59,12 +60,12 @@ export default {
 
         return;
       }
-      likers.forEach(async (element, index) => {
-        if (element._id === this.currentUser._id) {
-          likers.splice(index, 1);
+      likes.forEach(async (element, index) => {
+        if (element.id === this.currentUser.id) {
+          likes.splice(index, 1);
           this.isLocallyLiked = false;
 
-          await axiosInstance.put('/posts/' + postId + '/like', {userId: userId})
+          await axiosInstance.put('/posts/' + postId + '/like', { userId: userId })
               .then(res => {
                 // this.$notify(res.data.message);
               }, err => {
@@ -76,7 +77,7 @@ export default {
 
   },
   created() {
-    this.currentUser.id = this.currentUser._id;
+    // this.currentUser.id = this.currentUser._id; // TODO хз что это
     this.checkIfLiked();
   },
   components: {
@@ -113,7 +114,7 @@ export default {
         <div class="mt-4 flex">
                     <span class="flex items-center">
                         <div class="flex mr-2 text-t-accent text-xs">
-                            <Like @mouseup="likePost(post._id)" :checked="this.isLiked" :index="index"/>
+                            <Like @mouseup="likePost(post.id)" :checked="this.isLiked" :index="index"/>
                             <span>{{ post.likes.length }}</span>
                         </div>
                         <div class="-space-x-2">
@@ -126,7 +127,7 @@ export default {
                             </span>
                         </div>
                     </span>
-          <span class="ml-auto" v-if="currentUser.id === post.author._id">
+          <span class="ml-auto" v-if="currentUser.id === post.author.id">
                         <font-awesome-icon :icon="['fas', 'trash-alt']"
                                            class="mr-3 w-4 cursor-pointer text-t-accent hover:text-red-500/70"/>
                         <font-awesome-icon :icon="['fas', 'edit']"

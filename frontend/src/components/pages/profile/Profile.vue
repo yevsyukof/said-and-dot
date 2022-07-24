@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     async getPosts() {
-      await axios.get('/posts/' + this.user._id + '/posts')
+      await axios.get('/posts/' + this.user.id + '/posts')
           .then(res => {
             this.posts = res.data;
             this.isPostsLoaded = true;
@@ -51,7 +51,7 @@ export default {
     // async saveEdit() {
     //     if (!validateProfileEdit(this.form))
     //         return;
-    //     await axios.put('/users/' + this.user._id + '/edit', {
+    //     await axios.put('/users/' + this.user.id + '/edit', {
     //         firstname: this.form.firstname,
     //         lastname: this.form.lastname,
     //         bio: this.form.bio,

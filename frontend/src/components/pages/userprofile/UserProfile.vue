@@ -31,30 +31,31 @@ export default {
               this.$router.push('/');
               return;
             }
+
             this.profileUser = res.data.user;
             this.profileFollowers = this.profileUser.followers.length;
-            this.checkIfFollowed(this.profileUser);
+            this.checkIfFollowed(this.profileUser); // Проверяем подписаны ли мы на просматриваемого юзера
           })
     },
     async getPosts() {
-      await
-          this.getUser()
-              .then(async () => {
-                this.isLoaded = true;
-                if (this.user.username === this.$route.params.username) {
-                  return this.$router.push('/profile')
-                }
-                await axiosInstance.get('/posts/' + this.profileUser._id + '/posts')
-                    .then(res => {
-                      this.posts = res.data;
-                      this.isPostsLoaded = true;
-                    })
-              })
+      await this.getUser().then(
+          async () => {
+            this.isLoaded = true;
+            if (this.user.username === this.$route.params.username) {
+              return this.$router.push('/profile')
+            }
+            await axiosInstance
+                .get('/posts/' + this.profileUser.id + '/posts')
+                .then(res => {
+                  this.posts = res.data;
+                  this.isPostsLoaded = true;
+                })
+          })
     },
-    checkIfFollowed(user) {
-      user.followers.forEach(element => {
-        if (element._id === this.user._id) {
-          this.isFollowed = true;
+    checkIfFollowed(user) { // Проверяем нашу подписку на другого юзверя
+      user.followers.forEach(follower => {
+        if (follower.id === this.user.id) {
+          this.isFollowed = true; // TODO это неоптимально
         }
       });
     },
@@ -71,13 +72,12 @@ export default {
       }
       this.isFollowed = !this.isFollowed;
 
-      await axiosInstance.put(
-          '/users/' + this.profileUser._id + instruction, {
-            userId: this.user.id
-          }
-      ).then(res => {
-        console.log(res.data);
-      })
+      await axiosInstance
+          .put(
+              '/users/' + this.profileUser.id + instruction, {userId: this.user.id}
+          ).then(async res => { // сделал "async res"
+            console.log(res.data);
+          })
     },
   },
   watch: {

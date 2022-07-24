@@ -16,29 +16,29 @@ const routes = [
         children: [
             {
                 path: '',
-                name: 'Home',
+                name: 'Лента',
                 component: Home
 
             },
             {
                 path: '/chat',
-                name: 'Chatest',
+                name: 'Чаты',
                 component: () => import('/src/components/pages/chat/Chatest.vue')
 
             },
             {
                 path: '/profile',
-                name: 'Profile',
+                name: 'Профиль',
                 component: () => import('/src/components/pages/profile/Profile.vue')
             },
             {
                 path: '/settings',
-                name: 'Settings',
+                name: 'Настройки',
                 component: () => import('/src/components/pages/settings/Settings.vue')
             },
             {
                 path: '/user/:username',
-                name: 'User',
+                name: 'Пользователь',
                 component: () => import('/src/components/pages/userprofile/UserProfile.vue')
             }
         ]
@@ -89,7 +89,6 @@ router.beforeEach((to, from) => {
         case 'Home':
             document.title = 'S&D - Home';
             break;
-
         case 'Profile':
             document.title = 'S&D - Profile';
             break;
@@ -102,8 +101,6 @@ router.beforeEach((to, from) => {
         default:
             document.title = 'S&D';
             break;
-
-        // }
     }
 })
 

@@ -33,7 +33,7 @@ export default {
       await axiosInstance
           .post(
               '/posts/feed/all',
-              {userId: this.user._id}
+              {userId: this.user.id}
           ).then(
               res => {
                 this.feed = res.data;
@@ -101,7 +101,7 @@ export default {
   />
 
   <transition-group name="post-list" tag="ul">
-    <li v-for="(post,index) in feed" :key="post._id">
+    <li v-for="(post,index) in feed" :key="post.id">
       <Post v-bind:post="post" :index="index" :currentUser="user"/>
     </li>
   </transition-group>
