@@ -14,14 +14,15 @@ export default {
   <section name="header">
     <div class="flex flex-row justify-between">
       <div class="flex flex-col">
-        <h1
-            class="font-extrabold text-red-500 hover:text-red-500/70 text-3xl"
-        >{{ this.$route.name }}</h1>
+        <h1 class="font-extrabold text-red-500 hover:text-red-500/70 text-3xl">
+          {{ this.$route.name }}
+        </h1>
+
         <div class="mt-6 flex">
           <router-link to="/">
-            <h1
-                class="text-t-accent font-semibold text-sm hover:text-t-secondary cursor-pointer"
-            >Exocial</h1>
+            <h1 class="text-t-accent font-semibold text-sm hover:text-t-secondary cursor-pointer">
+              S&D
+            </h1>
           </router-link>
           <h1 class="ml-1 text-t-accent font-semibold text-sm">{{ '>' }}</h1>
           <h1 class="ml-1 text-t-secondary font-semibold text-sm">{{ this.$route.name }}</h1>

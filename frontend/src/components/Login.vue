@@ -94,7 +94,7 @@ export default {
 
   <div class="space-y-10 flex flex-col items-center log">
     <h1 class="font-extrabold text-red-500 text-3xl">
-      Сказал и точка
+      Сказал — и точка
     </h1>
 
     <a

@@ -3,9 +3,7 @@ import {ContentLoader} from 'vue-content-loader';
 
 import Post from '../../cards/posts/Post.vue';
 
-import axios from 'axios';
-
-axios.defaults.baseURL = '/api';
+import {axiosInstance} from "../../../service/axiosService";
 
 export default {
   name: 'user-profile-page',
@@ -22,7 +20,7 @@ export default {
   },
   methods: {
     async getUser() {
-      await axios.get('/users/username/' + this.$route.params.username)
+      await axiosInstance.get('/users/username/' + this.$route.params.username)
           .then(res => {
             if (res.status === 201) {
               this.$notify({
@@ -39,23 +37,25 @@ export default {
           })
     },
     async getPosts() {
-      await this.getUser().then(async () => {
-        this.isLoaded = true;
-        if (this.user.username === this.$route.params.username)
-          return this.$router.push('/profile')
-        await axios.get('/posts/' + this.profileUser._id + '/posts')
-            .then(res => {
-              this.posts = res.data;
-              this.isPostsLoaded = true;
-            })
-      })
+      await
+          this.getUser()
+              .then(async () => {
+                this.isLoaded = true;
+                if (this.user.username === this.$route.params.username) {
+                  return this.$router.push('/profile')
+                }
+                await axiosInstance.get('/posts/' + this.profileUser._id + '/posts')
+                    .then(res => {
+                      this.posts = res.data;
+                      this.isPostsLoaded = true;
+                    })
+              })
     },
     checkIfFollowed(user) {
       user.followers.forEach(element => {
         if (element._id === this.user._id) {
           this.isFollowed = true;
         }
-
       });
     },
     async followUser() {
@@ -71,21 +71,26 @@ export default {
       }
       this.isFollowed = !this.isFollowed;
 
-      await axios.put('/users/' + this.profileUser._id + instruction, {userId: this.user.id})
-          .then(res => {
-            console.log(res.data);
-          })
+      await axiosInstance.put(
+          '/users/' + this.profileUser._id + instruction, {
+            userId: this.user.id
+          }
+      ).then(res => {
+        console.log(res.data);
+      })
     },
   },
   watch: {
     isUserLoaded: async function (newValue) {
-      if (newValue)
+      if (newValue) {
         await this.getPosts()
+      }
     }
   },
   async created() {
-    if (this.isUserLoaded)
+    if (this.isUserLoaded) {
       await this.getPosts()
+    }
   },
   components: {
     Post,

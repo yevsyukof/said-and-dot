@@ -1,9 +1,7 @@
 <script>
 import Chatbox from '../../chat/box/Chatbox.vue'
 
-import axios from 'axios';
-
-axios.defaults.baseURL = '/api';
+import {axiosInstance} from "../../../service/axiosService";
 
 export default {
   name: 'Chatest',

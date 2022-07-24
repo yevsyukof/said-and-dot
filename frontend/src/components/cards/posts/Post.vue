@@ -3,9 +3,7 @@ import Like from './ui/Like.vue'
 
 import moment from 'moment'
 
-import axios from 'axios';
-
-axios.defaults.baseURL = '/api';
+import {axiosInstance} from "../../../service/axiosService";
 
 export default {
   name: 'post-item',
@@ -24,7 +22,6 @@ export default {
     return {
       isLiked: false,
       isLocallyLiked: false,
-      // socket: io('/'),
     }
   },
   methods: {
@@ -49,9 +46,8 @@ export default {
         likers.push(this.currentUser)
         this.isLocallyLiked = true
 
-        await axios.put('/posts/' + postId + '/like', {userId: userId})
+        await axiosInstance.put('/posts/' + postId + '/like', {userId: userId})
             .then(res => {
-              // this.socket.emit('likedpost', {from: this.currentUser, post: this.post} );
               console.log('likedpost', {
                 from: this.currentUser.username,
                 to: this.post.author.username,
@@ -68,7 +64,7 @@ export default {
           likers.splice(index, 1);
           this.isLocallyLiked = false;
 
-          await axios.put('/posts/' + postId + '/like', {userId: userId})
+          await axiosInstance.put('/posts/' + postId + '/like', {userId: userId})
               .then(res => {
                 // this.$notify(res.data.message);
               }, err => {
@@ -100,17 +96,20 @@ export default {
             class="w-12 h-12 rounded-full object-cover mr-4 shadow-[0_5px_10px_0_rgba(0,0,0,0.3)] float-left cursor-pointer"
             v-bind:src="post.author.avatar" alt="avatar"/>
       </router-link>
+
       <div class="w-full 2xs:ml-1">
         <div class="flex items-center justify-between">
           <router-link :to="'/user/' + post.author.username">
-            <h2 class="text-lg font-semibold text-t-primary -mt-1 cursor-pointer hover:text-gray-400">{{
-                post.author.firstname + ' ' + post.author.lastname
-              }}</h2>
+            <h2 class="text-lg font-semibold text-t-primary -mt-1 cursor-pointer hover:text-gray-400">
+              {{ post.author.firstname + ' ' + post.author.lastname }}
+            </h2>
           </router-link>
           <small class="text-sm text-t-accent cursor-pointer">{{ fromNow(post.createdAt) }}</small>
         </div>
+
         <p class="text-t-accent text-xs">Joined {{ formatDate(post.author.createdAt) }}.</p>
         <p class="mt-3 text-t-secondary text-sm">{{ post.content }}</p>
+
         <div class="mt-4 flex">
                     <span class="flex items-center">
                         <div class="flex mr-2 text-t-accent text-xs">

@@ -1,6 +1,6 @@
 export default {
     state: () => ({
-        _id: '',
+        id: '', // поменял с _id
         firstname: '',
         lastname: '',
         username: '',
@@ -11,8 +11,8 @@ export default {
     }),
     getters: {
         getUser() {
-            return user = {
-                _id: state.id,
+            return {
+                id: state.id,  // поменял с _id
                 firstname: state.firstname,
                 lastname: state.lastname,
                 username: state.username,
@@ -25,7 +25,7 @@ export default {
     },
     mutations: {
         SET_USER(curState, payload) {  // поменял state на curState
-            curState._id = payload._id;
+            curState.id = payload.id;
             curState.firstname = payload.firstname;
             curState.lastname = payload.lastname;
             curState.username = payload.username;

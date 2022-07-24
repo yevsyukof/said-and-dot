@@ -2,7 +2,6 @@
 export default {
   name: 'like-check',
   props: ['checked', 'index'],
-
 }
 </script>
 
@@ -64,8 +63,7 @@ svg {
   cursor: pointer;
   overflow: visible;
   width: 26px;
-  margin: -4px;
-  margin-right: -1px;
+  margin: -4px -1px -4px -4px; /* TODO изменил */
 }
 
 svg #heart {

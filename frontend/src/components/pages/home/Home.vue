@@ -31,7 +31,9 @@ export default {
     },
     async getFeed() {
       await axiosInstance
-          .post('/posts/feed/all', {userId: this.user._id}
+          .post(
+              '/posts/feed/all',
+              {userId: this.user._id}
           ).then(
               res => {
                 this.feed = res.data;
@@ -78,15 +80,16 @@ export default {
 
 <template>
   <div class="flex justify-between">
-    <h1
-        class="inline text-lg font-extrabold text-secondary px-3 py-1 rounded bg-t-secondary"
-    >Feed</h1>
+    <h1 class="inline text-lg font-extrabold text-secondary px-3 py-1 rounded bg-t-secondary">
+      Лента
+    </h1>
 
     <button
         @click="notOpen"
         :class="{ 'bg-green-700/70 hover:bg-green-700': !isPostOpen, 'bg-red-700/70 hover:bg-red-700/90 ': isPostOpen }"
         class="text-lg font-extrabold text-gray-200 px-3 py-1 rounded"
-    >{{ Text = isPostOpen ? 'Cancel' : 'Post' }}
+    >
+      {{ Text = isPostOpen ? 'Отмена' : 'Высказать' }}
     </button>
   </div>
 

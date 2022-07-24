@@ -33,21 +33,18 @@ export default {
         x-data="{ open: false }"
     >
       <div class="flex-shrink-0 px-6 py-4 flex flex-row items-center justify-between">
+
         <!--Это логотип слева на странице-->
 <!--        <a-->
 <!--            @click="this.$router.push('/')"-->
 <!--            class=" tracking-widest font-extrabold text-2xl uppercase rounded-lg dark-mode:text-gray-200 focus:outline-none focus:shadow-outline cursor-pointer"-->
 <!--        >Сказал и точка</a>-->
-
-
 <!--TODO:::::::::::::::::::::::::::::::-->
         <a
             @click="this.$router.push('/')"
         >
           <img src="/public/ico/snd-icon-500x500.png" alt="MDN logo">
         </a>
-
-
 
         <button
             class="rounded-lg md:hidden focus:outline-none focus:shadow-outline text-t-primary hover:text-gray-300/80"

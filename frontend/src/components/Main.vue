@@ -16,7 +16,7 @@ export default {
     return {
       isUserLoaded: false,
       user: {
-        _id: 'Loading...',
+        id: 'Loading...', // поменял c _id
         username: 'Loading...',
         firstname: 'Loading...',
         lastname: 'Loading...',

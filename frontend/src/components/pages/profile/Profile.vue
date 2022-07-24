@@ -114,9 +114,9 @@ export default {
 <template>
   <div class="flex-none">
     <div class>
-      <h1
-          class="inline text-lg font-extrabold text-secondary px-3 py-1 rounded bg-t-secondary"
-      >Overview</h1>
+      <h1 class="inline text-lg font-extrabold text-secondary px-3 py-1 rounded bg-t-secondary">
+        Обзор
+      </h1>
       <div
           v-if="this.isUserLoaded">
         <ProfileOverview v-bind:user="this.user"></ProfileOverview>
@@ -200,13 +200,16 @@ export default {
     <div class="mt-12">
       <h1
           class="inline text-lg font-extrabold text-secondary px-3 py-1 rounded bg-t-secondary"
-      >Posts</h1>
+      >
+        Высказывания
+      </h1>
       <div class="mt-8">
         <transition-group name="post-list" tag="ul">
           <li v-for="(post, index) in posts" :key="post">
             <Post v-bind:post="post" :index="index" :currentUser="user"/>
           </li>
         </transition-group>
+
         <div
             v-if="!this.isPostsLoaded"
             class="text-red-500 opacity-75 flex justify-center mt-32"

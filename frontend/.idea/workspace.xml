@@ -2,14 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a232ae75-64c8-4b79-a77a-5412c686b672" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/service/axiosService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/routeLocalizationService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/vite.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Main.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Signup.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Signup.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cards/posts/NewPost.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/posts/NewPost.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cards/posts/Post.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/posts/Post.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cards/posts/ui/Like.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/posts/ui/Like.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/header/Header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/Header.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/chat/Chatest.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/chat/Chatest.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/home/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/home/Home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/profile/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/profile/Profile.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/settings/Settings.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/settings/Settings.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/userprofile/UserProfile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/userprofile/UserProfile.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar/Sidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/Sidebar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/modules/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/modules/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -66,6 +86,9 @@
       <updated>1658421583207</updated>
       <workItem from="1658421584577" duration="13252000" />
       <workItem from="1658442052796" duration="2726000" />
+      <workItem from="1658445865290" duration="4703000" />
+      <workItem from="1658455858238" duration="2646000" />
+      <workItem from="1658675804940" duration="4276000" />
     </task>
     <servers />
   </component>
