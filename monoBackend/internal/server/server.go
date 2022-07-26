@@ -8,7 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"go.uber.org/zap"
-	"said-and-dot-backend/internal/config"
+	"said-and-dot-backend/internal/common/config"
 	"said-and-dot-backend/internal/database"
 	"time"
 )
@@ -33,7 +33,7 @@ func New(db database.Database, log *zap.SugaredLogger, appCfg *Config, engineCfg
 
 func (s *Server) Listen() {
 	s.initMiddlewares()
-	//s.initRouteGroups()
+	s.initRouteGroups()
 
 	if !fiber.IsChild() {
 		s.log.Infof("Starting up %s", s.config.AppName)
@@ -66,24 +66,24 @@ func (s *Server) initMiddlewares() {
 	}))
 }
 
-//func (s *Server) initRouteGroups() {
-//	auth.Routes(
-//		s.engine.Group("/auth"),
-//		s.db,
-//		s.cache)
-//
-//	tweet.Routes(
-//		s.engine.Group("/tweets"),
-//		s.db,
-//	)
-//
-//	user.Routes(
-//		s.engine.Group("/users"),
-//		s.db,
-//	)
-//
-//	relationship.Routes(
-//		s.engine.Group("/relationships"),
-//		s.db,
-//	)
-//}
+func (s *Server) initRouteGroups() {
+	auth.Routes(
+		s.engine.Group("/auth"),
+		s.db,
+		s.cache)
+
+	//tweet.Routes(
+	//	s.engine.Group("/tweets"),
+	//	s.db,
+	//)
+	//
+	//user.Routes(
+	//	s.engine.Group("/users"),
+	//	s.db,
+	//)
+	//
+	//relationship.Routes(
+	//	s.engine.Group("/relationships"),
+	//	s.db,
+	//)
+}

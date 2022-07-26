@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"log"
-	"said-and-dot-backend/internal/config"
+	"said-and-dot-backend/internal/common/config"
+	"said-and-dot-backend/internal/common/logger"
 	"said-and-dot-backend/internal/database"
-	"said-and-dot-backend/internal/logger"
 	"said-and-dot-backend/internal/server"
 )
 
