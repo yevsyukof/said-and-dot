@@ -8,7 +8,6 @@ function notifyError(msg) {
     notify({type: 'error', title: 'Error!', text: msg});
 }
 
-
 function isEmpty(form) {
     return (
         form.firstname === ''

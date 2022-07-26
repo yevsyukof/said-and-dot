@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a232ae75-64c8-4b79-a77a-5412c686b672" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/cards/posts/Post.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/posts/Post.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/home/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/home/Home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/validator.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +76,7 @@
       <workItem from="1658455858238" duration="2646000" />
       <workItem from="1658675804940" duration="4276000" />
       <workItem from="1658692184428" duration="341000" />
+      <workItem from="1658795975994" duration="549000" />
     </task>
     <servers />
   </component>

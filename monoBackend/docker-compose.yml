@@ -1,42 +1,62 @@
-version: '3.8'
-
-#volumes:
-#  postgres_data:
+version: "3.9"
 
 networks:
-  app_tier:
+  backend_tier:
     driver: bridge
 
 services:
   db:
+    container_name: db
     image: postgres
     restart: always
     environment:
-      POSTGRES_DB: "snd-data"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
-#    volumes:
-#      - postgres_data:/var/lib/postgresql/data
+      POSTGRES_DB: "snd-data"
     networks:
-      - app_tier
+      - backend_tier
     ports:
       - "5432:5432"
+    healthcheck:
+      test: "pg_isready -h localhost -U postgres"
+      interval: 10s
+      retries: 5
+      start_period: 10s
 
-  rest_server:
-    build:
-#      context: .
-      dockerfile: build/Dockerfile
-    env_file: configs/.env
-    environment:
-      APP_HOST: rest_server
-      DB_HOST: db
-#    volumes:
-#      - .:/usr/src/rest
+  migrate:
+    image: migrate/migrate
+    container_name: migrate
+    command:
+      [
+        "-path=/migrations/",
+        "-database",
+        "postgres://postgres:postgres@db:5432/snd-data?sslmode=disable",
+        "up",
+      ]
+    volumes:
+      - ./database/migrations:/migrations
     networks:
-      - app_tier
-    ports:
-      - "5000:5000"
-    depends_on:
-      - db
+      - backend_tier
     links:
       - db
+    depends_on:
+      db:
+        condition: service_healthy
+
+#  rest_server:
+#    container_name: rest_server
+#    build:
+##      context: .   # судя по всему - задает workdir при выполнении билда
+#      dockerfile: build/Dockerfile
+#    env_file: configs/.env
+#    environment:
+#      DB_HOST: db
+#    networks:
+#      - backend_tier
+#    ports:
+#      - "5000:5000"
+#    depends_on:
+#      db:
+#        condition: service_healthy
+#    links:
+#      - db:db

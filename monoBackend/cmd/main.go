@@ -25,9 +25,6 @@ func init() {
 func main() {
 	flag.Parse()
 
-	//log.Println("APP_HOST =", config.GetString("APP_HOST", "127.0.0.1"))
-	//log.Println()
-
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -43,8 +40,13 @@ func main() {
 		config.GetString("DB_DATABASE", "snd-data"),
 	)
 
+	println(config.GetString("DB_HOST", "127.0.0.1"))
+
+	println(dbUrl)
+
 	dbInstance, err := database.New(ctx, dbUrl)
 	if err != nil {
+		log.Println(dbUrl)
 		log.Fatal(err)
 	}
 
