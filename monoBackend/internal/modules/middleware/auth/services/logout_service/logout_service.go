@@ -8,7 +8,7 @@ import (
 )
 
 type LogoutInput struct {
-	RefreshToken string `json:"refreshToken" validate:"required"`
+	RefreshToken string `json:"refreshToken" validate:"required,jwt"`
 }
 
 func (li LogoutInput) Validate() []*validator.ValidationError {

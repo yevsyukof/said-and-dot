@@ -9,7 +9,7 @@ import (
 )
 
 type RefreshInput struct {
-	RefreshToken string `json:"refreshToken" validate:"required"`
+	RefreshToken string `json:"refreshToken" validate:"required,jwt"`
 }
 
 func (ri RefreshInput) Validate() []*validator.ValidationError {
