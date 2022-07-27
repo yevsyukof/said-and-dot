@@ -3,6 +3,7 @@ package refresh_token_service
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/google/uuid"
 	"said-and-dot-backend/internal/common/validator"
 	"said-and-dot-backend/internal/database"
 	"said-and-dot-backend/internal/modules/middleware/auth/services/token_service"
@@ -28,6 +29,7 @@ func NewRefreshService(db database.Database) RefreshService {
 	return refreshService{db: db}
 }
 
+// TODO нужно разбивать метод
 func (rs refreshService) Refresh(ctx *fiber.Ctx) error {
 	var refreshInput RefreshInput
 
@@ -73,15 +75,20 @@ func (rs refreshService) Refresh(ctx *fiber.Ctx) error {
 		})
 	}
 
+	userID, err := uuid.Parse(refreshTokenClaims["userID"].(string))
+	if err != nil {
+		return err
+	}
 	newAccessToken, newRefreshToken, err := token_service.GenerateNewTokensPair(
-		jwt.MapClaims{"userID": refreshTokenClaims["userID"]}, jwt.MapClaims{"userID": refreshTokenClaims["userID"]})
+		jwt.MapClaims{"userID": userID},
+		jwt.MapClaims{"userID": userID})
 	if err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": err,
 		})
 	}
 
-	if _, err := transaction.Exec("INSERT INTO \"Refresh_tokens\" VALUES ($1, $2)",
+	if _, err := transaction.Exec("INSERT INTO Refresh_tokens VALUES ($1, $2)",
 		refreshTokenClaims["userID"], newRefreshToken.ToString()); err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": err,

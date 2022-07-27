@@ -6,13 +6,22 @@ import (
 	"time"
 )
 
-func NewAccessToken(claims jwt.MapClaims) (*JwtToken, error) {
+type AccessJwtToken struct {
+	jwtToken string
+}
+
+func (t *AccessJwtToken) ToString() string {
+	return t.jwtToken
+}
+
+func NewAccessToken(claims jwt.MapClaims) (*AccessJwtToken, error) {
 	generatedTokenString, err := generateJwtToken(claims, getAccessTokenValidityDuration(), getAccessTokenSecretKey())
 	if err != nil {
 		return nil, err
 	}
-	accessToken := new(JwtToken)
-	accessToken.tokenString = generatedTokenString
+
+	accessToken := new(AccessJwtToken)
+	accessToken.jwtToken = generatedTokenString
 
 	return accessToken, nil
 }
@@ -36,7 +45,3 @@ func getAccessTokenValidityDuration() time.Duration {
 func getAccessTokenSecretKey() string {
 	return config.GetString("ACCESS_TOKEN_SECRET", "")
 }
-
-//func GetAccessTokenClaims(accessTokenString string) (jwt.MapClaims, error) {
-//	return getTokenClaims(accessTokenString, getAccessTokenSecretKey())
-//}

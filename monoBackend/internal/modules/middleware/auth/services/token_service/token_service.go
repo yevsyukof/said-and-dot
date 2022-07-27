@@ -7,14 +7,6 @@ import (
 	"time"
 )
 
-type JwtToken struct {
-	tokenString string
-}
-
-func (t *JwtToken) ToString() string {
-	return t.tokenString
-}
-
 func ParseJwtToken(tokenString string, secretKey string) (*jwt.Token, jwt.MapClaims, error) {
 	parsedToken, err := jwt.Parse(tokenString, func(t *jwt.Token) (interface{}, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
@@ -63,7 +55,7 @@ func getTokenClaims(tokenString, secretKey string) (jwt.MapClaims, error) {
 }
 
 func GenerateNewTokensPair(refreshTokenClaims jwt.MapClaims,
-	accessTokenClaims jwt.MapClaims) (*JwtToken, *JwtToken, error) {
+	accessTokenClaims jwt.MapClaims) (*AccessJwtToken, *RefreshJwtToken, error) {
 
 	accessToken, err := NewAccessToken(accessTokenClaims)
 	if err != nil {

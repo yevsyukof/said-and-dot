@@ -46,6 +46,8 @@ func (ls logoutService) Logout(ctx *fiber.Ctx) error {
 		})
 	}
 
+	println(refreshTokenClaims["userID"].(string))
+
 	if _, err := ls.db.Exec("DELETE FROM Refresh_tokens WHERE user_id = $1 AND token = $2",
 		refreshTokenClaims["userID"], logoutInput.RefreshToken); err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{

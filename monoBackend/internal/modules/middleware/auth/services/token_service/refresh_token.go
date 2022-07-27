@@ -2,18 +2,33 @@ package token_service
 
 import (
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/google/uuid"
 	"said-and-dot-backend/internal/common/config"
 	"time"
 )
 
-func NewRefreshToken(claims jwt.MapClaims) (*JwtToken, error) {
+type RefreshJwtToken struct {
+	jwtToken string
+	userID   uuid.UUID
+}
+
+func (t *RefreshJwtToken) ToString() string {
+	return t.jwtToken
+}
+
+func (t *RefreshJwtToken) GetUserID() uuid.UUID {
+	return t.userID
+}
+
+func NewRefreshToken(claims jwt.MapClaims) (*RefreshJwtToken, error) {
 	generatedTokenString, err := generateJwtToken(claims, getRefreshTokenValidityDuration(), getRefreshTokenSecretKey())
 	if err != nil {
 		return nil, err
 	}
 
-	refreshToken := new(JwtToken)
-	refreshToken.tokenString = generatedTokenString
+	refreshToken := new(RefreshJwtToken)
+	refreshToken.jwtToken = generatedTokenString
+	refreshToken.userID = claims["userID"].(uuid.UUID)
 
 	return refreshToken, nil
 }
@@ -37,7 +52,3 @@ func getRefreshTokenValidityDuration() time.Duration {
 func getRefreshTokenSecretKey() string {
 	return config.GetString("REFRESH_TOKEN_SECRET", "")
 }
-
-//func GetRefreshTokenClaims(refreshTokenString string) (jwt.MapClaims, error) {
-//	return getTokenClaims(refreshTokenString, getRefreshTokenSecretKey())
-//}
