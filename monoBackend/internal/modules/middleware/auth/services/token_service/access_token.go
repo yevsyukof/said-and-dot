@@ -23,13 +23,7 @@ func VerifyAccessToken(tokenString string) (jwt.MapClaims, error) {
 		return nil, err
 	}
 
-	// Проверяем есть ли у токена Claims?
-	// Ниже - type assertion
-	//if _, ok := token.Claims.(jwt.Claims); !ok && !token.Valid {
-	//	return nil, jwt.ErrInvalidKey
-	//}
-
-	if !token.Valid {
+	if !token.Valid || !tokenClaims.VerifyExpiresAt(time.Now().Unix(), true) {
 		return nil, jwt.ErrInvalidKey
 	}
 	return tokenClaims, nil
@@ -42,3 +36,7 @@ func getAccessTokenValidityDuration() time.Duration {
 func getAccessTokenSecretKey() string {
 	return config.GetString("ACCESS_TOKEN_SECRET", "")
 }
+
+//func GetAccessTokenClaims(accessTokenString string) (jwt.MapClaims, error) {
+//	return getTokenClaims(accessTokenString, getAccessTokenSecretKey())
+//}

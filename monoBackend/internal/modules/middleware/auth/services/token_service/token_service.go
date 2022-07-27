@@ -47,3 +47,33 @@ func generateJwtToken(claims jwt.MapClaims, validityDuration time.Duration, secr
 	}
 	return generatedToken, nil
 }
+
+func getTokenClaims(tokenString, secretKey string) (jwt.MapClaims, error) {
+	parsedToken, err := jwt.Parse(tokenString, func(t *jwt.Token) (interface{}, error) {
+		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("unexpected signing method: %v", t.Header["alg"])
+		}
+		return []byte(secretKey), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return parsedToken.Claims.(jwt.MapClaims), nil
+}
+
+func GenerateNewTokensPair(refreshTokenClaims jwt.MapClaims,
+	accessTokenClaims jwt.MapClaims) (*JwtToken, *JwtToken, error) {
+
+	accessToken, err := NewAccessToken(accessTokenClaims)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	refreshToken, err := NewRefreshToken(refreshTokenClaims)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return accessToken, refreshToken, nil
+}

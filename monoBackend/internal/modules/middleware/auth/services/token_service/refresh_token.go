@@ -24,7 +24,7 @@ func VerifyRefreshToken(tokenStr string) (jwt.MapClaims, error) {
 		return nil, err
 	}
 
-	if !token.Valid {
+	if !token.Valid || !tokenClaims.VerifyExpiresAt(time.Now().Unix(), true) {
 		return nil, jwt.ErrInvalidKey
 	}
 	return tokenClaims, nil
@@ -37,3 +37,7 @@ func getRefreshTokenValidityDuration() time.Duration {
 func getRefreshTokenSecretKey() string {
 	return config.GetString("REFRESH_TOKEN_SECRET", "")
 }
+
+//func GetRefreshTokenClaims(refreshTokenString string) (jwt.MapClaims, error) {
+//	return getTokenClaims(refreshTokenString, getRefreshTokenSecretKey())
+//}
