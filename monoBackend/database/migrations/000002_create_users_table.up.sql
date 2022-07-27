@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS "Users"
     "first_name"    varchar(40)              NOT NULL CHECK ( first_name != '' ),
     "last_name"     varchar(40)              NOT NULL CHECK ( last_name != '' ),
     "email"         varchar(60)              NOT NULL UNIQUE CHECK ( email != '' ),
-    "created"       timestamp with time zone NOT NULL,
-    "updated"       timestamp with time zone NOT NULL CHECK ( updated > created )
+    "created"       timestamp with time zone NOT NULL
+--     "updated"       timestamp with time zone NOT NULL CHECK ( updated > created )
 )
