@@ -10,6 +10,7 @@ import (
 	"go.uber.org/zap"
 	"said-and-dot-backend/internal/common/config"
 	"said-and-dot-backend/internal/database"
+	"said-and-dot-backend/internal/modules/middleware/auth"
 	"time"
 )
 
@@ -67,23 +68,5 @@ func (s *Server) initMiddlewares() {
 }
 
 func (s *Server) initRouteGroups() {
-	auth.Routes(
-		s.engine.Group("/auth"),
-		s.db,
-		s.cache)
-
-	//tweet.Routes(
-	//	s.engine.Group("/tweets"),
-	//	s.db,
-	//)
-	//
-	//user.Routes(
-	//	s.engine.Group("/users"),
-	//	s.db,
-	//)
-	//
-	//relationship.Routes(
-	//	s.engine.Group("/relationships"),
-	//	s.db,
-	//)
+	auth.SetRoutes(s.engine.Group("/auth"), s.db)
 }

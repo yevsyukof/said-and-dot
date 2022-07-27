@@ -1,4 +1,4 @@
-package login
+package login_service
 
 import (
 	"errors"
@@ -9,7 +9,7 @@ import (
 	"said-and-dot-backend/internal/common/validator"
 	"said-and-dot-backend/internal/database"
 	auth_errors "said-and-dot-backend/internal/modules/middleware/auth/errors"
-	"said-and-dot-backend/internal/modules/middleware/auth/services/token"
+	"said-and-dot-backend/internal/modules/middleware/auth/services/token_service"
 )
 
 type LoginInput struct {
@@ -22,7 +22,7 @@ func (li LoginInput) Validate() []*validator.ValidationError {
 }
 
 type LoginService interface {
-	createTokensPair(input LoginInput) (*token.AccessToken, *token.RefreshToken, error)
+	Login(ctx *fiber.Ctx) error
 }
 
 type loginService struct {
@@ -33,9 +33,7 @@ func NewLoginService(db database.Database) LoginService {
 	return loginService{db: db}
 }
 
-func (ls loginService) createTokensPair(input LoginInput) (
-	*token.AccessToken, *token.RefreshToken, error) {
-
+func (ls loginService) createTokensPair(input LoginInput) (*token_service.JwtToken, *token_service.JwtToken, error) {
 	var userId uuid.UUID
 	var email, passwordHash string
 
@@ -49,22 +47,21 @@ func (ls loginService) createTokensPair(input LoginInput) (
 		return nil, nil, errors.New("Invalid password provided")
 	}
 
-	at, err := token.NewAccessToken(jwt.MapClaims{
-		"userID": userId,
-		"email":  email,
-	})
-	if err != nil {
-		return nil, nil, err
-	}
-
-	rt, err := token.NewRefreshToken(jwt.MapClaims{
+	accessToken, err := token_service.NewAccessToken(jwt.MapClaims{
 		"userID": userId,
 	})
 	if err != nil {
 		return nil, nil, err
 	}
 
-	return at, rt, nil
+	refreshToken, err := token_service.NewRefreshToken(jwt.MapClaims{
+		"userID": userId,
+	})
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return accessToken, refreshToken, nil
 }
 
 func (ls loginService) Login(ctx *fiber.Ctx) error {
@@ -94,19 +91,8 @@ func (ls loginService) Login(ctx *fiber.Ctx) error {
 		}
 	}
 
-	//ctx.Cookie(&fiber.Cookie{
-	//	Name:     "refresh_token",
-	//	Value:    refreshToken.String(),
-	//	Expires:  refreshToken.ExpiresAt(),
-	//	HTTPOnly: true,
-	//	Secure:   config.GetString("APP_ENV", "development") == "production",
-	//	Path:     "/",
-	//	Domain:   config.GetString("APP_DOMAIN", ""),
-	//	SameSite: "None",
-	//})
-
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
-		"access_token":  accessToken.String(),
-		"refresh_token": refreshToken.String(),
+		"accessToken":  accessToken.ToString(),
+		"refreshToken": refreshToken.ToString(),
 	})
 }
