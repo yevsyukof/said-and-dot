@@ -12,8 +12,8 @@ export default {
     return {
       isEdit: false,
       form: {
-        firstname: '',
-        lastname: '',
+        firstName: '',
+        lastName: '',
         bio: '',
       },
       selectedAvatar: null,
@@ -24,16 +24,16 @@ export default {
   },
   methods: {
     updateInfo() {
-      this.user.firstname = this.form.firstname;
-      this.user.lastname = this.form.lastname;
+      this.user.firstName = this.form.firstName;
+      this.user.lastName = this.form.lastName;
       this.user.bio = this.form.bio;
     },
     notEdit() {
 
       this.isEdit = !this.isEdit
       if (this.isEdit) {
-        this.form.firstname = this.user.firstname;
-        this.form.lastname = this.user.lastname;
+        this.form.firstname = this.user.firstName;
+        this.form.lastname = this.user.lastName;
         this.form.bio = this.user.bio;
         return;
       }
@@ -45,8 +45,8 @@ export default {
       if (!validateProfileEdit(this.form))
         return;
       await axios.put('/users/' + this.user.id + '/edit', {
-        firstname: this.form.firstname,
-        lastname: this.form.lastname,
+        firstName: this.form.firstName,
+        lastName: this.form.lastName,
         bio: this.form.bio,
         token: localStorage.getItem('auth_token')
       }).then(res => {
@@ -181,10 +181,10 @@ export default {
         <div v-if="!this.isEdit" class="justify-center">
           <h1
               class="inline font-extrabold text-t-secondary hover:text-gray-400 text-xl uppercase"
-          >{{ user.firstname }}</h1>
+          >{{ user.firstName }}</h1>
           <h1
               class="inline font-extrabold text-t-accent hover:text-gray-500/70 text-xl uppercase"
-          >{{ ' ' + user.lastname }}</h1>
+          >{{ ' ' + user.lastName }}</h1>
         </div>
         <div v-else class="flex justify-center mb-3">
           <input
@@ -192,14 +192,14 @@ export default {
               name="firstname"
               placeholder="Firstname"
               class="inline max-w-[9.5rem] h-6 rounded focus:outline-none font-extrabold text-secondary bg-t-accent p-4 placeholder:text-tertiary text-xl uppercase text-right"
-              v-model="form.firstname"
+              v-model="form.firstName"
           />
           <input
               type="lastname"
               name="lastname"
               placeholder="Lastname"
               class="inline ml-4 max-w-[9.5rem] h-6 rounded focus:outline-none font-extrabold text-secondary bg-t-accent p-4 placeholder:text-tertiary text-xl uppercase"
-              v-model="form.lastname"
+              v-model="form.lastName"
           />
         </div>
 

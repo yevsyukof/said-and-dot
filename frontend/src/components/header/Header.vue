@@ -44,10 +44,10 @@ export default {
           <div class="flex justify-between">
             <h1
                 class="font-extrabold text-t-secondary hover:text-gray-400 text-xl uppercase"
-            >{{ user.firstname }}</h1>
+            >{{ user.firstName }}</h1>
             <h1
                 class="ml-2 font-extrabold text-t-accent hover:text-gray-500/70 text-xl uppercase 2xs:hidden xs:block"
-            >{{ ' ' + user.lastname }}</h1>
+            >{{ ' ' + user.lastName }}</h1>
           </div>
           <h1
               class="font-semibold text-t-accent hover:text-gray-500/50 text-sm 2xs:hidden xs:block"

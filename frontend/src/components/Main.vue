@@ -18,27 +18,25 @@ export default {
       user: {
         id: 'Loading...', // поменял c _id
         username: 'Loading...',
-        firstname: 'Loading...',
-        lastname: 'Loading...',
-        avatar: ''
+        firstName: 'Loading...',
+        lastName: 'Loading...',
       }
     }
   },
-  created() {
-    //user not auth'd
-    if (!localStorage.getItem('auth_token')) {
+  created() { // TODO это хуки
+    if (!localStorage.getItem("refreshToken")) { //user not login
       this.$notify({
         type: 'error',
         title: 'No login!',
-        text: "Please log in first."
+        text: "Please login first."
       });
       this.$router.push('/login');
     }
   },
-  async mounted() {
+  async mounted() { // TODO
     await axiosInstance.get('/auth/user', {
           headers: {
-            token: localStorage.getItem('auth_token')
+            Authorization: localStorage.getItem('accessToken')
           }
         }
     ).then(
@@ -60,6 +58,10 @@ export default {
         text: "Logged out successfully."
       });
       this.$router.push('/login');
+
+      if (localStorage.getItem("refreshToken")) {
+        axiosInstance.post("/auth/logout", {"refreshToken": localStorage.getItem("refreshToken")})
+      }
       localStorage.clear();
     }
   }

@@ -160,10 +160,10 @@ export default {
             <div class="justify-center">
               <h1
                   class="inline font-extrabold text-t-secondary hover:text-gray-400 text-xl uppercase"
-              >{{ profileUser.firstname }}</h1>
+              >{{ profileUser.firstName }}</h1>
               <h1
                   class="inline font-extrabold text-t-accent hover:text-gray-500/70 text-xl uppercase"
-              >{{ ' ' + profileUser.lastname }}</h1>
+              >{{ ' ' + profileUser.lastName }}</h1>
             </div>
 
             <div>

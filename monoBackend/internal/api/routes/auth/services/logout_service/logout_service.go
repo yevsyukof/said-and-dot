@@ -2,9 +2,9 @@ package logout_service
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"said-and-dot-backend/internal/api/routes/auth/services/token_service"
 	"said-and-dot-backend/internal/common/validator"
 	"said-and-dot-backend/internal/database"
-	"said-and-dot-backend/internal/modules/middleware/auth/services/token_service"
 )
 
 type LogoutInput struct {
@@ -45,8 +45,6 @@ func (ls logoutService) Logout(ctx *fiber.Ctx) error {
 			"message": err,
 		})
 	}
-
-	println(refreshTokenClaims["userID"].(string))
 
 	if _, err := ls.db.Exec("DELETE FROM Refresh_tokens WHERE user_id = $1 AND token = $2",
 		refreshTokenClaims["userID"], logoutInput.RefreshToken); err != nil {

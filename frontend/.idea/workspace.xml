@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a232ae75-64c8-4b79-a77a-5412c686b672" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Main.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Signup.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Signup.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cards/posts/NewPost.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/posts/NewPost.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cards/posts/Post.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/posts/Post.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/header/Header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/Header.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/profile/ProfileOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/profile/ProfileOverview.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/userprofile/UserProfile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/userprofile/UserProfile.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/validator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/axiosService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/axiosService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/modules/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/modules/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,21 +39,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/yevsyukof/git/said-and-dot/frontend/public/ico&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/home/yevsyukof/git/said-and-dot/frontend/node_modules/prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/var/lib/snapd/snap/webstorm/272/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/yevsyukof/git/said-and-dot/frontend/public/ico",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "/home/yevsyukof/git/said-and-dot/frontend/node_modules/prettier",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "ts.external.directory.path": "/var/lib/snapd/snap/webstorm/274/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/ico" />
@@ -77,6 +87,8 @@
       <workItem from="1658675804940" duration="4276000" />
       <workItem from="1658692184428" duration="341000" />
       <workItem from="1658795975994" duration="549000" />
+      <workItem from="1658960054237" duration="282000" />
+      <workItem from="1658961026578" duration="3203000" />
     </task>
     <servers />
   </component>

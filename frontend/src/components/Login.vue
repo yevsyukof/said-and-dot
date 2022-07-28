@@ -1,6 +1,8 @@
 <script>
 import {axiosInstance} from "../service/axiosService";
 
+const httpStatus = require('http-status');
+
 export default {
   name: 'login-page',
   data() {
@@ -11,8 +13,7 @@ export default {
     }
   },
   created() {
-    /// user alrdy auth'd
-    if (localStorage.getItem('auth_token')) {
+    if (localStorage.getItem('refreshToken')) { /// user alrdy auth'd
       this.$notify({type: 'warning', title: 'Logged!', text: "You are already logged in."});
       this.$router.push('/');
     }
@@ -26,7 +27,7 @@ export default {
             password: this.password
           }
       ).then(response => {
-            if (response.status === 201) {
+            if (response.status !== httpStatus.CREATED) {
               this.$notify({type: 'error', title: 'Error!', text: "Invalid credentials..."});
               return;
             }
@@ -40,11 +41,13 @@ export default {
               text: 'User logged in.'
             });
 
-            localStorage.setItem('auth_token', response.data.token);
-            this.$store.authToken = response.data.token
+            localStorage.setItem('refreshToken', response.data.refreshToken); // TODO accessToken?
+            localStorage.setItem('accessToken', response.data.accessToken); // TODO accessToken?
+            this.$store.refreshToken = response.data.refreshToken
+            this.$store.accessToken = response.data.accessToken
             this.$router.push('/');
           }, err => {
-            this.$notify({type: 'error', title: 'Error!', text: "Trouble logging in..."});
+            this.$notify({type: 'error', title: 'Error!', text: "Trouble logging in: " + err.toString()});
           }
       );
 

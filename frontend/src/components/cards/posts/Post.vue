@@ -102,7 +102,7 @@ export default {
         <div class="flex items-center justify-between">
           <router-link :to="'/user/' + post.author.username">
             <h2 class="text-lg font-semibold text-t-primary -mt-1 cursor-pointer hover:text-gray-400">
-              {{ post.author.firstname + ' ' + post.author.lastname }}
+              {{ post.author.firstName + ' ' + post.author.lastName }}
             </h2>
           </router-link>
           <small class="text-sm text-t-accent cursor-pointer">{{ fromNow(post.createdAt) }}</small>

@@ -97,7 +97,7 @@ export default {
             <h2
                 class="text-lg font-semibold text-t-primary -mt-1"
             >
-              {{ user.firstname + ' ' + user.lastname }}
+              {{ user.firstName + ' ' + user.lastName }}
             </h2>
             <small class="text-sm text-t-accent">Just now</small>
           </div>

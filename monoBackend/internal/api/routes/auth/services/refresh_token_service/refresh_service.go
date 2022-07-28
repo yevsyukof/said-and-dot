@@ -4,9 +4,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/google/uuid"
+	"said-and-dot-backend/internal/api/routes/auth/services/token_service"
 	"said-and-dot-backend/internal/common/validator"
 	"said-and-dot-backend/internal/database"
-	"said-and-dot-backend/internal/modules/middleware/auth/services/token_service"
 )
 
 type RefreshInput struct {

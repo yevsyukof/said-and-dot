@@ -5,15 +5,15 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/google/uuid"
+	"said-and-dot-backend/internal/api/routes/auth/services/token_service"
+	"said-and-dot-backend/internal/api/routes/errors"
 	"said-and-dot-backend/internal/common/bcrypt"
 	"said-and-dot-backend/internal/common/validator"
 	"said-and-dot-backend/internal/database"
-	auth_errors "said-and-dot-backend/internal/modules/middleware/auth/errors"
-	"said-and-dot-backend/internal/modules/middleware/auth/services/token_service"
 )
 
 type LoginInput struct {
-	Email    string `json:"email" validate:"required,email"`
+	Username string `json:"username" validate:"required"`
 	Password string `json:"password" validate:"required"`
 }
 
@@ -37,12 +37,12 @@ func (ls loginService) createTokensPair(input LoginInput) (
 	*token_service.AccessJwtToken, *token_service.RefreshJwtToken, error) {
 
 	var userId uuid.UUID
-	var email, passwordHash string
+	var username, passwordHash string
 
 	if err := ls.db.QueryRow(
-		"SELECT id, email, password_hash FROM Users WHERE email = $1",
-		input.Email).Scan(&userId, &email, &passwordHash); err != nil {
-		return nil, nil, auth_errors.ErrUserDoesNotExist
+		"SELECT id, username, password_hash FROM Users WHERE username = $1",
+		input.Username).Scan(&userId, &username, &passwordHash); err != nil {
+		return nil, nil, api_errors.ErrUserDoesNotExist
 	}
 
 	if !bcrypt.Compare(passwordHash, input.Password) {
@@ -82,7 +82,7 @@ func (ls loginService) Login(ctx *fiber.Ctx) error {
 	accessToken, refreshToken, err := ls.createTokensPair(loginInput)
 	if err != nil {
 		switch {
-		case errors.Is(err, auth_errors.ErrUserDoesNotExist) || errors.Is(err, auth_errors.ErrInvalidPassword):
+		case errors.Is(err, api_errors.ErrUserDoesNotExist) || errors.Is(err, api_errors.ErrInvalidPassword):
 			return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 				"message": "Invalid email/password",
 			})

@@ -3,10 +3,10 @@ package signup_service
 import (
 	"errors"
 	"github.com/gofiber/fiber/v2"
+	"said-and-dot-backend/internal/api/routes/errors"
 	"said-and-dot-backend/internal/common/bcrypt"
 	"said-and-dot-backend/internal/common/validator"
 	"said-and-dot-backend/internal/database"
-	auth_errors "said-and-dot-backend/internal/modules/middleware/auth/errors"
 	"time"
 )
 
@@ -48,7 +48,7 @@ func (ss signupService) Signup(ctx *fiber.Ctx) error {
 
 	if err := createNewUser(ss, signupInput); err != nil {
 		switch {
-		case errors.Is(err, auth_errors.ErrUserAlreadyExists):
+		case errors.Is(err, api_errors.ErrUserAlreadyExists):
 			return ctx.Status(fiber.StatusConflict).JSON(fiber.Map{
 				"message": "User with that email / username already exists",
 			})
@@ -59,7 +59,7 @@ func (ss signupService) Signup(ctx *fiber.Ctx) error {
 		}
 	}
 
-	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
+	return ctx.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "Successfully registered a new account",
 	})
 }
@@ -70,7 +70,7 @@ func createNewUser(ss signupService, si SignupInput) error {
 		si.Username, si.Email).Scan(&isUserExists); err != nil {
 		return err
 	} else if isUserExists {
-		return auth_errors.ErrUserAlreadyExists
+		return api_errors.ErrUserAlreadyExists
 	}
 
 	passwordHash, err := bcrypt.Hash(si.Password)

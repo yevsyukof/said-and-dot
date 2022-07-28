@@ -32,9 +32,13 @@ func VerifyAccessToken(tokenString string) (jwt.MapClaims, error) {
 		return nil, err
 	}
 
-	if !token.Valid || !tokenClaims.VerifyExpiresAt(time.Now().Unix(), true) {
-		return nil, jwt.ErrInvalidKey
+	if !token.Valid {
+		return nil, jwt.ErrTokenSignatureInvalid
 	}
+	if !tokenClaims.VerifyExpiresAt(time.Now().Unix(), true) {
+		return nil, jwt.ErrTokenExpired
+	}
+
 	return tokenClaims, nil
 }
 

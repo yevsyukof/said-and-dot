@@ -10,8 +10,8 @@ function notifyError(msg) {
 
 function isEmpty(form) {
     return (
-        form.firstname === ''
-        || form.lastname === ''
+        form.firstName === ''
+        || form.lastName === ''
         || form.username === ''
         || form.password === ''
         || form.email === ''
@@ -19,7 +19,7 @@ function isEmpty(form) {
 }
 
 function isEmptyNoEmail(form) {
-    return (form.firstname === '' || form.lastname === '')
+    return (form.firstName === '' || form.lastName === '')
 }
 
 function isEmail(form) {
@@ -28,15 +28,15 @@ function isEmail(form) {
 
 function isNamesValid(form) {
     return (
-        validator.isAlpha(form.firstname)
-        && validator.isAlpha(form.lastname)
+        validator.isAlpha(form.firstName)
+        && validator.isAlpha(form.lastName)
         && validator.isLength(
-            form.firstname, {
+            form.firstName, {
                 min: 3,
                 max: 20
             })
         && validator.isLength(
-            form.lastname, {
+            form.lastName, {
                 min: 3, max: 20
             })
     )
