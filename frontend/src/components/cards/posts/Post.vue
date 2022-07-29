@@ -5,6 +5,8 @@ import moment from 'moment'
 
 import {axiosInstance} from "../../../service/axiosService";
 
+import {StatusCodes} from 'http-status-codes';
+
 export default {
   name: 'post-item',
   props: {
@@ -32,22 +34,24 @@ export default {
       return moment(date, "YYYY-MM-DDThh:mm:ss.sssZ").fromNow()
     },
     checkIfLiked() {
-      this.post.likes.forEach(userWhoLiked => {
-        if (this.currentUser.id === userWhoLiked.id) {
-          this.isLiked = true
-          this.isLocallyLiked = true
-        }
-      });
+      if (this.post.likes != null) {
+        this.post.likes.forEach(userWhoLiked => {
+          if (this.currentUser.id === userWhoLiked.id) {
+            this.isLiked = true
+            this.isLocallyLiked = true
+          }
+        });
+      }
     },
     async likePost(postId) {
-      let likes = this.post.likes;
+      let likes = this.post.likes === null ? [] : this.post.likes;
       let userId = this.currentUser.id;
 
       if (!this.isLocallyLiked) {
         likes.push(this.currentUser)
         this.isLocallyLiked = true
 
-        await axiosInstance.put('/posts/' + postId + '/like', {userId: userId})
+        await axiosInstance.put('/posts/' + postId + '/like', {userID: userId})
             .then(res => {
               console.log('likedpost', {
                 from: this.currentUser.username,
@@ -65,7 +69,7 @@ export default {
           likes.splice(index, 1);
           this.isLocallyLiked = false;
 
-          await axiosInstance.put('/posts/' + postId + '/like', { userId: userId })
+          await axiosInstance.put('/posts/' + postId + '/like', { userID: userId })
               .then(res => {
                 // this.$notify(res.data.message);
               }, err => {

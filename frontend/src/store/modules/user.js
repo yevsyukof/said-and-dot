@@ -5,9 +5,11 @@ export default {
         lastName: '',
         username: '',
         email: '',
-        avatar: '',
+        avatar: "https://w7.pngwing.com/pngs/419/473/png-transparent-computer-icons-user-profile-login-user-heroes-sphere-black-thumbnail.png",
         isAdmin: '',
         isMod: '',
+        followers: [],
+        follows: []
     }),
     getters: {
         getUser() {
@@ -20,6 +22,8 @@ export default {
                 avatar: state.avatar,
                 isAdmin: state.isAdmin,
                 isMod: state.isMod,
+                followers: [],
+                follows: []
             }
         }
     },
@@ -30,7 +34,7 @@ export default {
             curState.lastname = payload.lastName;
             curState.username = payload.username;
             curState.email = payload.email;
-            curState.avatar = payload.avatar;
+            // curState.avatar = payload.avatar;
             curState.isAdmin = payload.isAdmin;
             curState.isMod = payload.isMod;
         }

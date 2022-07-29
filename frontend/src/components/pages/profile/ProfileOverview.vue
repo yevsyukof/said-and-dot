@@ -1,9 +1,7 @@
 <script>
-import axios from 'axios';
-
 import {validateProfileEdit} from '../../validator';
 
-axios.defaults.baseURL = '/api';
+import {axiosInstance} from "../../../service/axiosService";
 
 export default {
   name: 'profile-overview',
@@ -11,7 +9,7 @@ export default {
   data() {
     return {
       isEdit: false,
-      form: {
+      form: { // это форма ввода?
         firstName: '',
         lastName: '',
         bio: '',
@@ -24,16 +22,15 @@ export default {
   },
   methods: {
     updateInfo() {
-      this.user.firstName = this.form.firstName;
-      this.user.lastName = this.form.lastName;
+      this.user.userData.firstName = this.form.firstName;
+      this.user.userData.lastName = this.form.lastName;
       this.user.bio = this.form.bio;
     },
     notEdit() {
-
       this.isEdit = !this.isEdit
       if (this.isEdit) {
-        this.form.firstname = this.user.firstName;
-        this.form.lastname = this.user.lastName;
+        this.form.firstName = this.user.firstName;
+        this.form.lastName = this.user.lastName;
         this.form.bio = this.user.bio;
         return;
       }
@@ -44,7 +41,7 @@ export default {
     async saveEdit() {
       if (!validateProfileEdit(this.form))
         return;
-      await axios.put('/users/' + this.user.id + '/edit', {
+      await axiosInstance.put('/users/' + this.user.id + '/edit', {
         firstName: this.form.firstName,
         lastName: this.form.lastName,
         bio: this.form.bio,
@@ -77,7 +74,7 @@ export default {
       this.isAvatarUploading = true;
       // let formData = new FormData();
       // formData.append('avatar', this.selectedAvatar);
-      // axios.post('/users/' + this.user.id + '/avatar', formData, {
+      // axiosInstance.post('/users/' + this.user.id + '/avatar', formData, {
       //     headers: {
       //         'Content-Type': 'multipart/form-data',
       //         'token': localStorage.getItem('auth_token')
@@ -121,7 +118,7 @@ export default {
     <div class="flex flex-col items-center min-w-fit">
       <h1
           class="mb-2 font-extrabold text-t-secondary hover:text-gray-400 text-xl uppercase"
-      >{{ user.username }}</h1>
+      >{{ user.userData.username }}</h1>
       <img
           :class="{ 'admin': user.isAdmin }"
           class="w-32 h-32 rounded-full object-cover shadow-lg"
@@ -181,10 +178,10 @@ export default {
         <div v-if="!this.isEdit" class="justify-center">
           <h1
               class="inline font-extrabold text-t-secondary hover:text-gray-400 text-xl uppercase"
-          >{{ user.firstName }}</h1>
+          >{{ user.userData.firstName }}</h1>
           <h1
               class="inline font-extrabold text-t-accent hover:text-gray-500/70 text-xl uppercase"
-          >{{ ' ' + user.lastName }}</h1>
+          >{{ ' ' + user.userData.lastName }}</h1>
         </div>
         <div v-else class="flex justify-center mb-3">
           <input
@@ -206,7 +203,7 @@ export default {
         <div>
           <h1
               class="text-lg font-semibold text-t-secondary hover:text-gray-400"
-          >{{ user.email }}</h1>
+          >{{ user.userData.email }}</h1>
         </div>
       </div>
 
@@ -219,7 +216,7 @@ export default {
         >{{ 'Followers : ' + user.followers.length }}</h1>
         <h1
             class="2xs:mt-3 sm:mt-0 font-semibold text-t-secondary hover:text-gray-400 text-md cursor-pointer"
-        >{{ 'Following : ' + user.myFollowings }}</h1>
+        >{{ 'Following : ' + user.follows.length }}</h1>
       </div>
       <div v-if="!this.isEdit" class="flex sm:flex-row 2xs:flex-col items-center">
         <h3

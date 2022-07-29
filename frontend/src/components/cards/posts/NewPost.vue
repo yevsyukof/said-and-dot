@@ -1,7 +1,10 @@
 <script>
 import {axiosInstance} from "../../../service/axiosService";
-
+import {isJwtExpired} from 'jwt-check-expiration';
 import moment from 'moment';
+// import {refreshAccessToken} from "../../../service/tokenService"
+
+import {StatusCodes} from 'http-status-codes';
 
 export default {
   name: 'new-post-item',
@@ -27,23 +30,40 @@ export default {
     },
     async submitPost() {
       this.isEmpty = false;
-      if (this.postContent === '')
+      if (this.postContent === '') {
         this.isEmpty = true;
-      else {
+      } else {
         this.isLoading = true;
 
+        // if (isJwtExpired(localStorage.getItem('accessToken'))) {
+        //   if (isJwtExpired(localStorage.getItem('refreshToken'))) {
+        //     // TODO выкидывать чувака на окно Login
+        //   }
+        //
+        //   refreshData = await refreshAccessToken(isJwtExpired(localStorage.getItem('refreshToken')))
+        //   localStorage.removeItem('refreshToken')
+        //   localStorage.removeItem('accessToken')
+        //
+        //   console.assert(refreshData)
+        // }
+
         // //create new post
-        const res = await axiosInstance.post('/posts/', {
-              author: this.user.id, // TODO _id
-              content: this.postContent
+        await axiosInstance.post('/tweets/',
+            {
+              tweet: this.postContent
+            },
+            {
+              headers: {
+                Authorization: localStorage.getItem('accessToken')
+              }
             }
         ).then(
             res => {
-              if (res.status === 200) {
+              if (res.status === StatusCodes.CREATED) {
                 return this.$notify({
                       type: 'success',
                       title: 'Sucess!',
-                      text: 'Post is submitted.'
+                      text: 'Ваше высказывание услышано!'
                     }
                 );
               }

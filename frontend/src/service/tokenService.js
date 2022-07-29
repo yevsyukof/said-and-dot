@@ -1,3 +1,12 @@
-// import { isJwtExpired } from 'jwt-check-expiration';
+// import {axiosInstance} from "../service/axiosService";
 //
-// console.log('isExpired is:', isJwtExpired('your-token-here'));
+// export async function refreshAccessToken(refreshToken) {
+//     await axiosInstance
+//         .post("/auth/refresh-token", {
+//                 refreshToken: refreshToken
+//             }
+//         ).then(res => {
+//             // TODO обрабатывать ошибки
+//             return res.data
+//         })
+// }

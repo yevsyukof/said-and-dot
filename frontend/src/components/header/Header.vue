@@ -44,14 +44,14 @@ export default {
           <div class="flex justify-between">
             <h1
                 class="font-extrabold text-t-secondary hover:text-gray-400 text-xl uppercase"
-            >{{ user.firstName }}</h1>
+            >{{ user.userData.firstName }}</h1>
             <h1
                 class="ml-2 font-extrabold text-t-accent hover:text-gray-500/70 text-xl uppercase 2xs:hidden xs:block"
-            >{{ ' ' + user.lastName }}</h1>
+            >{{ ' ' + user.userData.lastName }}</h1>
           </div>
           <h1
               class="font-semibold text-t-accent hover:text-gray-500/50 text-sm 2xs:hidden xs:block"
-          >{{ user.email }}</h1>
+          >{{ user.userData.email }}</h1>
         </div>
       </div>
       <div v-else class="flex items-center columns-2">

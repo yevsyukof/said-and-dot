@@ -1,4 +1,4 @@
-package me_service
+package my_service
 
 import (
 	"errors"
@@ -10,27 +10,27 @@ import (
 	"said-and-dot-backend/internal/database"
 )
 
-type MeInput struct {
+type MyInput struct {
 	AccessToken string `json:"accessToken" validate:"required,jwt"`
 }
 
-func (mi MeInput) Validate() []*validator.ValidationError {
+func (mi MyInput) Validate() []*validator.ValidationError {
 	return validator.ValidateStruct(mi)
 }
 
-type MeService interface {
+type MyService interface {
 	Get(ctx *fiber.Ctx) error
 }
 
-type meService struct {
+type myService struct {
 	db database.Database
 }
 
-func NewMeService(db database.Database) MeService {
-	return meService{db: db}
+func NewMyService(db database.Database) MyService {
+	return myService{db: db}
 }
 
-func (ms meService) Get(ctx *fiber.Ctx) error {
+func (ms myService) Get(ctx *fiber.Ctx) error {
 	authorizationHeader, contains := ctx.GetReqHeaders()[fiber.HeaderAuthorization]
 	if !contains {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
@@ -38,7 +38,7 @@ func (ms meService) Get(ctx *fiber.Ctx) error {
 		})
 	}
 
-	meInput := MeInput{AccessToken: authorizationHeader}
+	meInput := MyInput{AccessToken: authorizationHeader}
 	if validationErrors := meInput.Validate(); validationErrors != nil {
 		return ctx.Status(fiber.StatusUnprocessableEntity).JSON(validationErrors)
 	}
@@ -68,14 +68,7 @@ func (ms meService) Get(ctx *fiber.Ctx) error {
 		}
 	}
 
-	userFollowers, err := db_middleware.GetFollowersByUserID(user.ID, ms.db)
-	if err != nil {
-		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"message": "There was a problem on our side with database",
-		})
-	}
-
-	follows, err := db_middleware.GetFollowsByUserID(user.ID, ms.db)
+	userTweets, err := db_middleware.GetUserTweets(user, ms.db)
 	if err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "There was a problem on our side with database",
@@ -83,8 +76,6 @@ func (ms meService) Get(ctx *fiber.Ctx) error {
 	}
 
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{ // TODO
-		"userData":  user,
-		"followers": userFollowers,
-		"follows":   follows,
+		"userTweets": userTweets,
 	})
 }

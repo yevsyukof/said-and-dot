@@ -3,7 +3,7 @@ import {axiosInstance} from "../service/axiosService";
 
 import {validateRegister} from './validator';
 
-const httpStatus = require('http-status');
+import {StatusCodes} from 'http-status-codes';
 
 export default {
   name: 'signup-page',
@@ -33,7 +33,7 @@ export default {
       await axiosInstance.post('/auth/signup', this.signupData)
           .then(
               res => {
-                if (res.status === httpStatus.CONFLICT) {
+                if (res.status === StatusCodes.CONFLICT) {
                   this.$notify({type: 'error', title: 'Error!', text: "Username/email already used"});
                   return;
                 }

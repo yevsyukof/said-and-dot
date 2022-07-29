@@ -1,7 +1,7 @@
 <script>
 import {axiosInstance} from "../service/axiosService";
 
-const httpStatus = require('http-status');
+import {StatusCodes} from 'http-status-codes';
 
 export default {
   name: 'login-page',
@@ -22,13 +22,13 @@ export default {
     async login() {
       this.loading = true;
 
-      await axiosInstance.post('/auth/login', { // TODO
+      await axiosInstance.post('/auth/login', {
             username: this.username,
             password: this.password
           }
       ).then(response => {
-            if (response.status !== httpStatus.CREATED) {
-              this.$notify({type: 'error', title: 'Error!', text: "Invalid credentials..."});
+            if (response.status !== StatusCodes.OK) {
+              this.$notify({type: 'error', title: 'Error!', text: "Invalid email/password..."});
               return;
             }
 
@@ -41,9 +41,9 @@ export default {
               text: 'User logged in.'
             });
 
-            localStorage.setItem('refreshToken', response.data.refreshToken); // TODO accessToken?
-            localStorage.setItem('accessToken', response.data.accessToken); // TODO accessToken?
-            this.$store.refreshToken = response.data.refreshToken
+            localStorage.setItem('refreshToken', response.data.refreshToken);
+            localStorage.setItem('accessToken', response.data.accessToken);
+            // this.$store.refreshToken = response.data.refreshToken
             this.$store.accessToken = response.data.accessToken
             this.$router.push('/');
           }, err => {

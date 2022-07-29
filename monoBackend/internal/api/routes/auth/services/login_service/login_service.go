@@ -46,7 +46,7 @@ func (ls loginService) createTokensPair(input LoginInput) (
 	}
 
 	if !bcrypt.Compare(passwordHash, input.Password) {
-		return nil, nil, errors.New("invalid password provided")
+		return nil, nil, api_errors.ErrInvalidPassword
 	}
 
 	accessToken, err := token_service.NewAccessToken(jwt.MapClaims{
@@ -71,7 +71,7 @@ func (ls loginService) Login(ctx *fiber.Ctx) error {
 
 	if err := ctx.BodyParser(&loginInput); err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": err.Error(),
+			"message": err,
 		})
 	}
 
@@ -89,6 +89,7 @@ func (ls loginService) Login(ctx *fiber.Ctx) error {
 		default:
 			return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"message": "There was a problem on our side",
+				"err":     err,
 			})
 		}
 	}

@@ -5,6 +5,8 @@ import Post from '../../cards/posts/Post.vue';
 
 import {axiosInstance} from "../../../service/axiosService";
 
+import {StatusCodes} from 'http-status-codes';
+
 export default {
   name: 'user-profile-page',
   props: ['isUserLoaded', 'user'],
@@ -13,16 +15,20 @@ export default {
       isFollowed: false,
       isLoaded: false,
       isPostsLoaded: false,
-      profileFollowers: 0,
-      profileUser: {followers: [], followings: []},
-      posts: {}
+      profileFollowers: '',
+      profileUser: {
+        followers: [],
+        follows: []
+      },
+      myTweets: {}
     }
   },
   methods: {
     async getUser() {
-      await axiosInstance.get('/users/username/' + this.$route.params.username)
+      await axiosInstance
+          .get('/users/username/' + this.$route.params.username)
           .then(res => {
-            if (res.status === 201) {
+            if (res.status === StatusCodes.NOT_FOUND) {
               this.$notify({
                 type: 'error',
                 title: 'User not found!',
@@ -32,18 +38,20 @@ export default {
               return;
             }
 
+            // TODO api хуита
             this.profileUser = res.data.user;
             this.profileFollowers = this.profileUser.followers.length;
             this.checkIfFollowed(this.profileUser); // Проверяем подписаны ли мы на просматриваемого юзера
           })
     },
-    async getPosts() {
+    async getMyTweets() {
       await this.getUser().then(
           async () => {
             this.isLoaded = true;
             if (this.user.username === this.$route.params.username) {
               return this.$router.push('/profile')
             }
+
             await axiosInstance
                 .get('/posts/' + this.profileUser.id + '/posts')
                 .then(res => {
@@ -54,7 +62,7 @@ export default {
     },
     checkIfFollowed(user) { // Проверяем нашу подписку на другого юзверя
       user.followers.forEach(follower => {
-        if (follower.id === this.user.id) {
+        if (follower.id === this.user.userData.id) {
           this.isFollowed = true; // TODO это неоптимально
         }
       });
@@ -74,7 +82,7 @@ export default {
 
       await axiosInstance
           .put(
-              '/users/' + this.profileUser.id + instruction, {userId: this.user.id}
+              '/users/' + this.profileUser.id + instruction, {userID: this.user.userData.id}
           ).then(async res => { // сделал "async res"
             console.log(res.data);
           })
@@ -178,7 +186,7 @@ export default {
             >{{ 'Followers : ' + profileFollowers }}</h1>
             <h1
                 class="2xs:mt-3 sm:mt-0 font-semibold text-t-secondary hover:text-gray-400 text-md cursor-pointer"
-            >{{ 'Following : ' + profileUser.followings.length }}</h1>
+            >{{ 'Following : ' + profileUser.follows.length }}</h1>
 
           </div>
           <div class="flex justify-center mt-2">

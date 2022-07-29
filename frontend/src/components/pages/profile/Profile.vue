@@ -5,10 +5,12 @@ import ProfileOverview from './ProfileOverview.vue';
 
 import Post from '../../cards/posts/Post.vue';
 
-import axios from 'axios';
+import {axiosInstance} from "../../../service/axiosService";
+
 import ProfileOverview1 from './ProfileOverview.vue';
 
-axios.defaults.baseURL = '/api';
+import {StatusCodes} from 'http-status-codes';
+
 
 export default {
   name: 'profile-page',
@@ -16,22 +18,31 @@ export default {
   data() {
     return {
       isPostsLoaded: false,
-      posts: {},
-      // isEdit: false,
-      // form: {
-      //     firstname: "",
-      //     lastname: "",
-      //     email: "",
-      //     bio: "",
-      // },
-      // selectedAvatar: null,
+      myTweets: {},
+      isEdit: false,
+      form: { // это форма ввода
+        firstName: "",
+        lastName: "",
+        email: "",
+        bio: "",
+      },
+      selectedAvatar: null,
     }
   },
   methods: {
-    async getPosts() {
-      await axios.get('/posts/' + this.user.id + '/posts')
-          .then(res => {
-            this.posts = res.data;
+    async getMyTweets() {
+      await axiosInstance
+          .get('/tweets/my', {
+                headers: {
+                  "Authorization": localStorage.getItem('accessToken'),
+                }
+              }
+          ).then(res => {
+            if (res.status === StatusCodes.NOT_FOUND) {
+              this.myTweets = ''; // TODO
+            } else {
+              this.myTweets = res.data.userTweets;
+            }
             this.isPostsLoaded = true;
           })
     },
@@ -79,12 +90,12 @@ export default {
   watch: {
     isUserLoaded: async function (newValue) {
       if (newValue)
-        await this.getPosts()
+        await this.getMyTweets()
     }
   },
   async created() {
     if (this.isUserLoaded)
-      await this.getPosts()
+      await this.getMyTweets()
   },
   components: {
     ProfileOverview,
@@ -205,7 +216,7 @@ export default {
       </h1>
       <div class="mt-8">
         <transition-group name="post-list" tag="ul">
-          <li v-for="(post, index) in posts" :key="post">
+          <li v-for="(post, index) in myTweets" :key="post">
             <Post v-bind:post="post" :index="index" :currentUser="user"/>
           </li>
         </transition-group>

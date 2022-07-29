@@ -9,6 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"go.uber.org/zap"
 	"said-and-dot-backend/internal/api/routes/auth"
+	"said-and-dot-backend/internal/api/routes/tweets"
 	"said-and-dot-backend/internal/api/routes/users"
 	"said-and-dot-backend/internal/common/config"
 	"said-and-dot-backend/internal/database"
@@ -49,7 +50,7 @@ func (s *Server) initMiddlewares() {
 	s.engine.Use(cors.New(cors.Config{
 		AllowOrigins:     config.GetString("APP_DOMAIN", "*"),
 		AllowCredentials: true,
-		AllowHeaders:     "Content-Type",
+		AllowHeaders:     "Content-Type, Authorization",
 	}))
 
 	//s.engine.Use(helmet.New()) // TODO
@@ -70,6 +71,6 @@ func (s *Server) initMiddlewares() {
 
 func (s *Server) initRouteGroups() {
 	auth.SetRoutes(s.engine.Group("/auth"), s.db)
-
 	users.SetRoutes(s.engine.Group("/users"), s.db)
+	tweets.SetRoutes(s.engine.Group("/tweets"), s.db)
 }

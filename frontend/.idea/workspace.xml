@@ -2,18 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a232ae75-64c8-4b79-a77a-5412c686b672" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../monoBackend/internal/api/entities/tweet_with_author.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../monoBackend/internal/api/routes/tweets/my_service/my_service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../monoBackend/internal/api/routes/tweets/root_service/root_service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../monoBackend/internal/api/routes/tweets/tweets_middleware.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Main.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Signup.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Signup.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/cards/posts/NewPost.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/posts/NewPost.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/cards/posts/Post.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/posts/Post.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/header/Header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/Header.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/home/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/home/Home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/profile/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/profile/Profile.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/profile/ProfileOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/profile/ProfileOverview.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/userprofile/UserProfile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/userprofile/UserProfile.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/validator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/axiosService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/axiosService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/tokenService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/tokenService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/modules/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/modules/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../monoBackend/database/migrations/000003_create_tweets_table.up.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../monoBackend/database/migrations/000003_create_tweets_table.up.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../monoBackend/internal/api/entities/tweet.go" beforeDir="false" afterPath="$PROJECT_DIR$/../monoBackend/internal/api/entities/tweet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../monoBackend/internal/api/routes/auth/services/login_service/login_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../monoBackend/internal/api/routes/auth/services/login_service/login_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../monoBackend/internal/api/routes/users/services/me_service/db_middleware/db_middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/../monoBackend/internal/api/db_middleware/db_middleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../monoBackend/internal/api/routes/users/services/me_service/me_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../monoBackend/internal/api/routes/users/services/me_service/me_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../monoBackend/internal/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/../monoBackend/internal/server/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,21 +51,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/yevsyukof/git/said-and-dot/frontend/public/ico",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "/home/yevsyukof/git/said-and-dot/frontend/node_modules/prettier",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "ts.external.directory.path": "/var/lib/snapd/snap/webstorm/274/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/yevsyukof/git/said-and-dot/frontend/public/ico&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/home/yevsyukof/git/said-and-dot/frontend/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/var/lib/snapd/snap/webstorm/274/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/ico" />
@@ -89,6 +101,9 @@
       <workItem from="1658795975994" duration="549000" />
       <workItem from="1658960054237" duration="282000" />
       <workItem from="1658961026578" duration="3203000" />
+      <workItem from="1659036423013" duration="1528000" />
+      <workItem from="1659038955989" duration="3338000" />
+      <workItem from="1659044219195" duration="14664000" />
     </task>
     <servers />
   </component>

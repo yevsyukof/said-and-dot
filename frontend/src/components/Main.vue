@@ -16,10 +16,22 @@ export default {
     return {
       isUserLoaded: false,
       user: {
-        id: 'Loading...', // поменял c _id
-        username: 'Loading...',
-        firstName: 'Loading...',
-        lastName: 'Loading...',
+        userData: {
+          id: 'Loading...',
+          username: 'Loading...',
+          firstName: 'Loading...',
+          lastName: 'Loading...',
+          email: 'Loading...',
+        },
+
+        // id: 'Loading...',
+        // username: 'Loading...',
+        // firstName: 'Loading...',
+        // lastName: 'Loading...',
+        // email: 'Loading...',
+
+        followers: ["asd", "asdasd"], // TODO
+        follows: ["asd", "asdasd123"]
       }
     }
   },
@@ -34,20 +46,30 @@ export default {
     }
   },
   async mounted() { // TODO
-    await axiosInstance.get('/auth/user', {
+    await axiosInstance.get('/users/me', {
           headers: {
-            Authorization: localStorage.getItem('accessToken')
+            "Authorization": localStorage.getItem('accessToken'),
           }
         }
     ).then(
         res => {
-          this.user = res.data.user;
-          this.user.myFollowings = this.user.followings.length;
+          console.log(res.data)
+
+          this.user = res.data
+
+          if (this.user.follows === null) {
+            this.user.follows = []
+          }
+          if (this.user.followers === null) {
+            this.user.followers = []
+          }
+
           this.isUserLoaded = true;
-          this.$store.dispatch('saveUser', this.user);
+          this.$store.dispatch('saveUser', this.user.userData);
         }, err => {
           this.$notify({type: 'error', title: 'Error!', text: "Trouble in getting user..."});
-        })
+        }
+    )
   },
   methods: {
     logout() {

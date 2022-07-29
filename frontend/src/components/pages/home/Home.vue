@@ -13,30 +13,29 @@ export default {
     return {
       isPostOpen: false,
       isFeedLoaded: false,
-      feed: [],
+      allTweets: [],
     }
   },
   methods: {
     addPost(newContent) {
       let post = {
-        author: this.user,
+        author: this.user.userData,
         content: newContent,
         likes: [],
         createdAt: moment()
       }
-      this.feed.unshift(post)
+      this.allTweets.unshift(post)
     },
     notOpen() {
       this.isPostOpen = !this.isPostOpen;
     },
-    async getFeed() {
+    async getAllTweets() {
       await axiosInstance
-          .post(
-              '/posts/feed/all',
-              {userId: this.user.id}
+          .get(
+              '/tweets/'
           ).then(
               res => {
-                this.feed = res.data;
+                this.allTweets = res.data.allTweets;
                 this.isFeedLoaded = true;
               }
           )
@@ -46,13 +45,13 @@ export default {
     isUserLoaded:
         async function (newer, old) {
           if (newer) {
-            await this.getFeed()
+            await this.getAllTweets()
           }
         }
   },
   async created() {
     if (this.isUserLoaded) {
-      await this.getFeed()
+      await this.getAllTweets()
     }
   },
   components: {
@@ -97,11 +96,11 @@ export default {
       :isOpen="isPostOpen"
       @closePost="notOpen"
       @newPost="addPost"
-      v-bind:user="this.user"
+      v-bind:user="this.user.userData"
   />
 
   <transition-group name="post-list" tag="ul">
-    <li v-for="(post,index) in feed" :key="post.id">
+    <li v-for="(post,index) in allTweets" :key="post.id">
       <Post v-bind:post="post" :index="index" :currentUser="user"/>
     </li>
   </transition-group>
