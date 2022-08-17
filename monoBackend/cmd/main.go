@@ -29,6 +29,7 @@ func main() {
 	defer cancel()
 
 	if err := config.Load(dotEnvConfigFilePath); err != nil {
+		log.Println("-- dotEnvFile not found --")
 		log.Fatal(err)
 	}
 
@@ -40,14 +41,9 @@ func main() {
 		config.GetString("DB_DATABASE", "snd-data"),
 	)
 
-	println(config.GetString("DB_HOST", "127.0.0.1"))
-
-	println(dbUrl)
-
 	dbInstance, err := database.New(ctx, dbUrl)
 	if err != nil {
-		log.Println(dbUrl)
-		log.Fatal(err)
+		log.Fatal("Database connection error:", err)
 	}
 
 	serverInstance := server.New(
@@ -55,7 +51,7 @@ func main() {
 		logger.NewLogger(config.GetBool("DEBUG", false)),
 		&server.Config{
 			AppName: config.GetString("APP_NAME", "monoBackend"),
-			Host:    config.GetString("APP_HOST", "127.0.0.1"),
+			Host:    config.GetString("APP_HOST", ""),
 			Port:    config.GetString("APP_PORT", "5000"),
 		},
 		fiber.Config{

@@ -53,7 +53,7 @@ func (s *Server) initMiddlewares() {
 		AllowHeaders:     "Content-Type, Authorization",
 	}))
 
-	//s.engine.Use(helmet.New()) // TODO
+	//s.engine.Use(helmet.New()) /// TODO
 
 	s.engine.Use(compress.New(compress.Config{
 		Level: compress.LevelBestSpeed,

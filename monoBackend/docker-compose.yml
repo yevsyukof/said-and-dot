@@ -3,6 +3,7 @@ version: "3.9"
 networks:
   backend_tier:
     driver: bridge
+    name: snd-net
 
 services:
   db:
@@ -43,20 +44,24 @@ services:
       db:
         condition: service_healthy
 
-#  rest_server:
-#    container_name: rest_server
-#    build:
-##      context: .   # судя по всему - задает workdir при выполнении билда
-#      dockerfile: build/Dockerfile
-#    env_file: configs/.env
-#    environment:
-#      DB_HOST: db
-#    networks:
-#      - backend_tier
-#    ports:
-#      - "5000:5000"
-#    depends_on:
-#      db:
-#        condition: service_healthy
-#    links:
-#      - db:db
+  rest_server:
+    container_name: rest_server
+    build:
+      context: .   # судя по всему - задает workdir при выполнении билда
+      dockerfile: build/Dockerfile
+      args:
+        APP_PORT: 5000
+    env_file: configs/.env
+    environment:
+      DB_HOST: db
+      APP_PORT: 5000
+      APP_HOST: rest_server
+    networks:
+      - backend_tier
+    ports:
+      - "5000:5000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    links:
+      - db:db
