@@ -3,7 +3,7 @@ import Like from './ui/Like.vue'
 
 import moment from 'moment'
 
-import {axiosInstance} from "../../../service/axiosService";
+import {axiosInstance} from "../../service/axiosService";
 
 import {StatusCodes} from 'http-status-codes';
 

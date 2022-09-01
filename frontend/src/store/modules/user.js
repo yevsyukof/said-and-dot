@@ -5,7 +5,8 @@ export default {
         lastName: '',
         username: '',
         email: '',
-        avatar: "https://w7.pngwing.com/pngs/419/473/png-transparent-computer-icons-user-profile-login-user-heroes-sphere-black-thumbnail.png",
+        avatar:
+            "https://w7.pngwing.com/pngs/419/473/png-transparent-computer-icons-user-profile-login-user-heroes-sphere-black-thumbnail.png",
         isAdmin: '',
         isMod: '',
         followers: [],
@@ -44,4 +45,4 @@ export default {
             commit('SET_USER', data)
         }
     }
-}
+} // TODO обращемся к этой штуке через this.$store.dispatch (в Main по крайней мере)

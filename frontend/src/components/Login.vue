@@ -44,7 +44,7 @@ export default {
             localStorage.setItem('refreshToken', response.data.refreshToken);
             localStorage.setItem('accessToken', response.data.accessToken);
             // this.$store.refreshToken = response.data.refreshToken
-            this.$store.accessToken = response.data.accessToken
+            // this.$store.accessToken = response.data.accessToken
             this.$router.push('/');
           }, err => {
             this.$notify({type: 'error', title: 'Error!', text: "Trouble logging in: " + err.toString()});

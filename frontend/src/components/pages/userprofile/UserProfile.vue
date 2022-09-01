@@ -1,7 +1,7 @@
 <script>
 import {ContentLoader} from 'vue-content-loader';
 
-import Post from '../../cards/posts/Post.vue';
+import Post from '../../posts/Post.vue';
 
 import {axiosInstance} from "../../../service/axiosService";
 

@@ -28,6 +28,7 @@ export default {
     },
     notEdit() {
       this.isEdit = !this.isEdit
+
       if (this.isEdit) {
         this.form.firstName = this.user.firstName;
         this.form.lastName = this.user.lastName;
@@ -36,11 +37,12 @@ export default {
       }
       this.avatarUnselected();
       this.cancelUploadAvatar();
-
     },
     async saveEdit() {
-      if (!validateProfileEdit(this.form))
+      if (!validateProfileEdit(this.form)) {
         return;
+      }
+
       await axiosInstance.put('/users/' + this.user.id + '/edit', {
         firstName: this.form.firstName,
         lastName: this.form.lastName,
@@ -136,14 +138,16 @@ export default {
         <button
             @click="$refs.fileInput.click()"
             class="bg-indigo-700/70 hover:bg-indigo-700/90 2xs:mt-6 sm:mt-10 sm:ml-auto text-lg font-extrabold text-gray-200 py-1 rounded w-20"
-        >Change avatar
+        >
+          Сменить аватар
         </button>
         <button
             v-show="this.isAvatarSelected"
             :disabled="this.isAvatarUploading"
             @click="uploadAvatar"
             class="bg-green-700/70 hover:bg-green-700/90 2xs:mt-6 sm:mt-10 ml-2 text-lg font-extrabold text-gray-200 py-1 rounded w-10 h-10"
-        >↑
+        >
+          ↑
         </button>
       </div>
 
@@ -166,8 +170,9 @@ export default {
 
       <div v-if="user.isAdmin" class="flex justify-center mt-4">
         <h1
-            class="admin inline text-lg font-extrabold text-red-500 px-3 py-1 rounded bg-accent"
-        >Admin</h1>
+            class="admin inline text-lg font-extrabold text-red-500 px-3 py-1 rounded bg-accent">
+          Admin
+        </h1>
       </div>
     </div>
     <div class="flex flex-col px-8 py-10 w-full">
@@ -178,7 +183,9 @@ export default {
         <div v-if="!this.isEdit" class="justify-center">
           <h1
               class="inline font-extrabold text-t-secondary hover:text-gray-400 text-xl uppercase"
-          >{{ user.userData.firstName }}</h1>
+          >
+            {{ user.userData.firstName }}
+          </h1>
           <h1
               class="inline font-extrabold text-t-accent hover:text-gray-500/70 text-xl uppercase"
           >{{ ' ' + user.userData.lastName }}</h1>
@@ -203,7 +210,9 @@ export default {
         <div>
           <h1
               class="text-lg font-semibold text-t-secondary hover:text-gray-400"
-          >{{ user.userData.email }}</h1>
+          >
+            {{ user.userData.email }}
+          </h1>
         </div>
       </div>
 
@@ -213,20 +222,23 @@ export default {
       >
         <h1
             class="font-semibold text-t-secondary hover:text-gray-400 text-md cursor-pointer"
-        >{{ 'Followers : ' + user.followers.length }}</h1>
+        >{{ 'Подписчики : ' + user.followers.length }}</h1>
         <h1
             class="2xs:mt-3 sm:mt-0 font-semibold text-t-secondary hover:text-gray-400 text-md cursor-pointer"
-        >{{ 'Following : ' + user.follows.length }}</h1>
+        >{{ 'Подписки : ' + user.follows.length }}</h1>
       </div>
       <div v-if="!this.isEdit" class="flex sm:flex-row 2xs:flex-col items-center">
         <h3
             v-if="user.bio"
             class="text-t-secondary 2xs:mt-2 font-semibold italic sm:ml-auto hover:text-gray-400"
-        >{{ user.bio }}</h3>
+        >
+          {{ user.bio }}
+        </h3>
         <button
             @click="notEdit"
             class="bg-red-700/70 hover:bg-red-700/90 2xs:mt-4 sm:mt-10 sm:ml-auto text-lg font-extrabold text-gray-200 px-3 py-1 rounded w-20 h-10"
-        >Edit
+        >
+          Изменить
         </button>
       </div>
       <div
@@ -244,12 +256,14 @@ export default {
         <button
             @click="saveEdit"
             class="bg-green-700/70 hover:bg-green-700/90 2xs:mt-4 sm:mt-8 text-lg font-extrabold text-gray-200 px-3 py-1 rounded w-20 h-10"
-        >Save
+        >
+          Обновить
         </button>
         <button
             @click="notEdit"
             class="bg-gray-700/70 hover:bg-gray-700/90 2xs:mt-4 sm:mt-8 text-lg font-extrabold text-gray-200 px-3 py-1 rounded w-20 h-10"
-        >Cancel
+        >
+          Отмена
         </button>
       </div>
     </div>

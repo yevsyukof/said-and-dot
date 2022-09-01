@@ -1,5 +1,5 @@
 <script>
-import {axiosInstance} from "../../../service/axiosService";
+import {axiosInstance} from "../../service/axiosService";
 import {isJwtExpired} from 'jwt-check-expiration';
 import moment from 'moment';
 // import {refreshAccessToken} from "../../../service/tokenService"

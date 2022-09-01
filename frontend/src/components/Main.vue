@@ -10,8 +10,6 @@ export default {
     Header,
     Sidebar,
   },
-  setup() {
-  },
   data() {
     return {
       isUserLoaded: false,
@@ -23,20 +21,13 @@ export default {
           lastName: 'Loading...',
           email: 'Loading...',
         },
-
-        // id: 'Loading...',
-        // username: 'Loading...',
-        // firstName: 'Loading...',
-        // lastName: 'Loading...',
-        // email: 'Loading...',
-
-        followers: ["asd", "asdasd"], // TODO
-        follows: ["asd", "asdasd123"]
+        followers: [], // TODO
+        follows: []
       }
     }
   },
   created() { // TODO это хуки
-    if (!localStorage.getItem("refreshToken")) { //user not login
+    if (!localStorage.getItem("refreshToken")) {
       this.$notify({
         type: 'error',
         title: 'No login!',
@@ -45,6 +36,7 @@ export default {
       this.$router.push('/login');
     }
   },
+
   async mounted() { // TODO
     await axiosInstance.get('/users/me', {
           headers: {
@@ -53,8 +45,6 @@ export default {
         }
     ).then(
         res => {
-          console.log(res.data)
-
           this.user = res.data
 
           if (this.user.follows === null) {
@@ -65,7 +55,7 @@ export default {
           }
 
           this.isUserLoaded = true;
-          this.$store.dispatch('saveUser', this.user.userData);
+          this.$store.dispatch('saveUser', this.user.userData); //обращаемся к store модулю
         }, err => {
           this.$notify({type: 'error', title: 'Error!', text: "Trouble in getting user..."});
         }

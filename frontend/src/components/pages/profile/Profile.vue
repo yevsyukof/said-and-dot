@@ -3,7 +3,7 @@ import {ContentLoader} from 'vue-content-loader';
 
 import ProfileOverview from './ProfileOverview.vue';
 
-import Post from '../../cards/posts/Post.vue';
+import Post from '../../posts/Post.vue';
 
 import {axiosInstance} from "../../../service/axiosService";
 

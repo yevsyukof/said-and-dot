@@ -4,6 +4,9 @@ networks:
   backend_tier:
     driver: bridge
     name: snd-net
+  app_tier:
+    driver: bridge
+    name: app-net
 
 services:
   db:
@@ -35,7 +38,7 @@ services:
         "up",
       ]
     volumes:
-      - ./database/migrations:/migrations
+      - ./monoBackend/database/migrations:/migrations
     networks:
       - backend_tier
     links:
@@ -47,17 +50,18 @@ services:
   rest_server:
     container_name: rest_server
     build:
-      context: .   # судя по всему - задает workdir при выполнении билда
+      context: ./monoBackend
       dockerfile: build/Dockerfile
       args:
         APP_PORT: 5000
-    env_file: configs/.env
+    env_file: ./monoBackend/configs/.env
     environment:
       DB_HOST: db
       APP_PORT: 5000
       APP_HOST: rest_server
     networks:
       - backend_tier
+      - app_tier
     ports:
       - "5000:5000"
     depends_on:
@@ -65,3 +69,20 @@ services:
         condition: service_completed_successfully
     links:
       - db:db
+
+  front:
+    container_name: front
+    build:
+      context: ./frontend
+      dockerfile: build/Dockerfile
+    volumes:
+      - ./frontend:/front
+    networks:
+      # - backend_tier
+      - app_tier
+    ports:
+      - "7000:7000"
+    depends_on:
+      - rest_server
+    links:
+      - rest_server
