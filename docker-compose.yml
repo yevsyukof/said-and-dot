@@ -78,7 +78,6 @@ services:
     volumes:
       - ./frontend:/front
     networks:
-      # - backend_tier
       - app_tier
     ports:
       - "7000:7000"
@@ -86,3 +85,4 @@ services:
       - rest_server
     links:
       - rest_server
+
