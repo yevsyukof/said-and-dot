@@ -13,6 +13,7 @@ require (
 	github.com/joho/godotenv v1.4.0
 	github.com/matoous/go-nanoid/v2 v2.0.0
 	github.com/mattn/go-colorable v0.1.6
+	github.com/pkg/errors v0.8.1
 	go.uber.org/zap v1.13.0
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
 )

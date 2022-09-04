@@ -38,7 +38,7 @@ services:
         "up",
       ]
     volumes:
-      - ./monoBackend/database/migrations:/migrations
+      - ./monoBackend/services/monolith/migrations/:/migrations
     networks:
       - backend_tier
     links:
@@ -51,7 +51,7 @@ services:
     container_name: rest_server
     build:
       context: ./monoBackend
-      dockerfile: build/Dockerfile
+      dockerfile: ./services/monolith/build/Dockerfile
       args:
         APP_PORT: 5000
     env_file: ./monoBackend/configs/.env

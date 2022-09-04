@@ -6,7 +6,7 @@ GO=go
 LDFLAGS=-ldflags="-s -w -X"
 BINARY_DIR=.bin
 
-ENTRYPOINT=cmd/main.go
+ENTRYPOINT=./services/monolith/cmd/app/main.go
 ARTIFACT_NAME=snd-backend
 
 #GOOSS=darwin linux windows freebsd netbsd openbsd dragonfly
